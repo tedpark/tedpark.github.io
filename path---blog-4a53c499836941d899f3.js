@@ -1,2 +1,0 @@
-webpackJsonp([49683490770531],{607:function(t,e){t.exports={data:{allMarkdownRemark:{edges:[{node:{excerpt:"Oooooh-weeee, my first blog post!",id:"/home/ted/bitlocal/project-by-ted/project-by-ted/src/pages/blog/qqq.md absPath of file >>> MarkdownRemark",frontmatter:{title:"My First Gatsby Post",date:"July 12, 2017",path:"/blog/qqq"}}}]}},pathContext:{}}}});
-//# sourceMappingURL=path---blog-4a53c499836941d899f3.js.map
