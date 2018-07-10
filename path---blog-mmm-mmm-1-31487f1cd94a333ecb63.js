@@ -1,2 +1,0 @@
-webpackJsonp([62362625484010],{607:function(e,t){e.exports={data:{markdownRemark:{htmlAst:{type:"root",children:[{type:"element",tagName:"p",properties:{},children:[{type:"text",value:"Oooooh-weeee, my first blog post!\n"},{type:"element",tagName:"img",properties:{src:"/images/logo.png"},children:[]}]}],data:{quirksMode:!1}},frontmatter:{title:"My First Gatsby Post",date:"2017-07-12T17:12:33.962Z"}}},pathContext:{slug:"/blog/mmm/mmm1/"}}}});
-//# sourceMappingURL=path---blog-mmm-mmm-1-31487f1cd94a333ecb63.js.map

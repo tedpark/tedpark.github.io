@@ -9,8 +9,8 @@
       "path---kitchenlive-a0e39f21c11f6a62c5ab.js.map"
     ],
     "path---blog": [
-      "path---blog-0588fbe62ec49d9a49dd.js",
-      "path---blog-0588fbe62ec49d9a49dd.js.map"
+      "path---blog-6074aa120ff6da5bb6f3.js",
+      "path---blog-6074aa120ff6da5bb6f3.js.map"
     ],
     "path---tech": [
       "path---tech-a0e39f21c11f6a62c5ab.js",
@@ -19,10 +19,6 @@
     "path---": [
       "path----39eaccc68746c5e5b853.js",
       "path----39eaccc68746c5e5b853.js.map"
-    ],
-    "path---blog-mmm-mmm-1": [
-      "path---blog-mmm-mmm-1-31487f1cd94a333ecb63.js",
-      "path---blog-mmm-mmm-1-31487f1cd94a333ecb63.js.map"
     ],
     "path---sharebooks": [
       "path---sharebooks-a0e39f21c11f6a62c5ab.js",
@@ -64,6 +60,10 @@
       "path---index-a0e39f21c11f6a62c5ab.js",
       "path---index-a0e39f21c11f6a62c5ab.js.map"
     ],
+    "path---blog-tech-webrtc": [
+      "path---blog-tech-webrtc-61f496a1983127454121.js",
+      "path---blog-tech-webrtc-61f496a1983127454121.js.map"
+    ],
     "component---src-pages-404-js": [
       "component---src-pages-404-js-6d2ae354d9a688a49b26.js",
       "component---src-pages-404-js-6d2ae354d9a688a49b26.js.map"
@@ -97,14 +97,18 @@
       "component---src-pages-page-2-js-075954cd9c4544c7dcd8.js.map"
     ],
     "app": [
-      "app-54cb15ecd4ad9ecd637a.js",
+      "app-ab9e45a8cb8fc3417bd7.js",
       "build-js-styles.css",
-      "app-54cb15ecd4ad9ecd637a.js.map",
+      "app-ab9e45a8cb8fc3417bd7.js.map",
       "build-js-styles.css.map"
     ],
     "path---404": [
       "path---404-a0e39f21c11f6a62c5ab.js",
       "path---404-a0e39f21c11f6a62c5ab.js.map"
+    ],
+    "path---blog-tech-mmm-1": [
+      "path---blog-tech-mmm-1-f50039f7b4e14d17bf94.js",
+      "path---blog-tech-mmm-1-f50039f7b4e14d17bf94.js.map"
     ]
   }
 }
