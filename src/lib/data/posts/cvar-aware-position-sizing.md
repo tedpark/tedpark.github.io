@@ -1,6 +1,6 @@
 ---
 title: "CVaR-Aware Position Sizing — Turning QR-DQN Quantiles into a Sizing Multiplier"
-subtitle: "The follow-up: I promised to wire the tail-risk estimate into live sizing. Here's the opt-in, one-line patch that does it."
+subtitle: "The follow-up: I promised to wire the tail-risk estimate into the sizing layer. Here's the opt-in, one-line patch that does it."
 date: "2026-04-17"
 tags: ["Reinforcement Learning", "Quantitative Finance", "CVaR", "Risk Management", "Python"]
 summary: "QR-DQN gave me a CVaR number. A number is not a strategy. This post wires that CVaR into the actual PortfolioSimulator path via a four-tier scaler (target / scale / floor / veto), adds a mixin so every RL signal class inherits the capability, and keeps the change fully opt-in — existing backtests stay bit-for-bit identical unless you drop a QR-DQN checkpoint into the cache."
@@ -8,7 +8,7 @@ summary: "QR-DQN gave me a CVaR number. A number is not a strategy. This post wi
 
 > **TL;DR.** Previous post turned QR-DQN's 51-quantile output into a
 > `CVaR₅%` number. This post turns that number into an actual sizing decision
-> inside the running pair-trading system. Four tiers — **target / scale /
+> inside the backtested pair-trading system. Four tiers — **target / scale /
 > floor / veto** — map a CVaR estimate to a multiplier in `[0, 1]` that the
 > `PortfolioSimulator` reads from signal metadata. One line in
 > `portfolio.py` changes; everything else stays the same. Opt-in: no
@@ -26,7 +26,7 @@ if predicted_cvar < cvar_target:
     position_size *= max(0, (cvar_target - predicted_cvar) / sigma_cvar)
 ```
 
-That's a nice slide. It is not a system. To put it into the live path I had
+That's a nice slide. It is not a system. To put it into the signal-to-sizing path I had
 to answer four questions:
 
 1. **Where** do I hook? The signal generator? The portfolio simulator?

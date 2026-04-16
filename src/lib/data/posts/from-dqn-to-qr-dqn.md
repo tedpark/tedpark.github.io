@@ -334,8 +334,10 @@ math test that passed.
 
 Working on these in order this week:
 
-1. Wire CVaR-based sizing into the live pair-trading path
-   (`UnifiedExecutionEngine` entry function)
+1. Wire CVaR-based sizing into the pair-trading backtest path
+   (`UnifiedExecutionEngine` entry function) — opt-in, scaffolded
+   alongside a statistical baseline signal generator (`rl_stat_only`
+   is the default, RL modes are available but not running by default)
 2. **IQN** ([Dabney 2018][iqn]) — implicit quantile version of QR-DQN
 3. **Deep Hedging** ([Buehler 2019][buehler]) — the option-hedging RL
    classic, applied to pair-trading
