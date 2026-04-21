@@ -23,6 +23,10 @@ without forking a second nav.
 				class="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-mono uppercase tracking-[0.2em]"
 			>Blog</a>
 			<a
+				href="/books"
+				class="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-mono uppercase tracking-[0.2em]"
+			>Books</a>
+			<a
 				href="mailto:itstedpark@gmail.com"
 				class="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-mono"
 			>itstedpark@gmail.com</a>

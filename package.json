@@ -24,6 +24,7 @@
 		"clsx": "^2.1.1",
 		"katex": "^0.16.45",
 		"mdsvex": "^0.12.7",
+		"puppeteer": "^24.42.0",
 		"rehype-katex": "^6.0.3",
 		"remark-math": "^5.1.1",
 		"shadcn-svelte": "^1.2.7",
