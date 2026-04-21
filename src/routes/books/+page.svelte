@@ -84,9 +84,9 @@
 			tag: 'Python · HMM · SAC RL · IBKR · FastAPI',
 			titleHtml: 'Stock Trading AI<br /><span style="opacity:0.4">실전 구현</span>',
 			subtitle: {
-				ko: '4년 솔로 빌드 — HMM · SAC RL · 통계적 차익거래',
-				en: '4-Year Solo Build — HMM · SAC RL · Statistical Arbitrage',
-				ja: '4年間のソロビルド — HMM · SAC RL · 統計的裁定取引'
+				ko: 'HMM · SAC RL · 통계적 차익거래',
+				en: 'HMM · SAC RL · Statistical Arbitrage',
+				ja: 'HMM · SAC RL · 統計的裁定取引'
 			},
 			desc: {
 				ko: 'OOS Sharpe 3.716, IBKR 라이브 32 페어. HMM 레짐 분류기부터 SAC RL 포지션 사이징, FastAPI 서비스, Rust TUI 모니터링까지 — 실제 운영 중인 시스템의 전체 아키텍처.',

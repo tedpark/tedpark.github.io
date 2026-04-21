@@ -142,7 +142,7 @@ const PRODUCTS = [
 <p><a href="${SAMPLE_BASE}/quant-ko-sample.pdf">📥 무료 샘플 PDF 다운로드</a> — 목차 및 1~2장 포함</p>
 
 <h3>📋 구성</h3>
-<p>한국어 · PDF · 약 350페이지 · Python 전체 소스코드 포함</p>`,
+<p>한국어 · PDF · 약 350페이지 · 핵심 Python 소스코드 포함</p>`,
     },
   },
   {
@@ -177,7 +177,7 @@ const PRODUCTS = [
 <p><a href="${SAMPLE_BASE}/quant-en-sample.pdf">📥 Download Free Sample PDF</a> — includes table of contents and chapters 1–2</p>
 
 <h3>📋 Details</h3>
-<p>English · PDF · ~350 pages · Full Python source code included</p>`,
+<p>English · PDF · ~350 pages · Core Python source code included</p>`,
     },
   },
   {
@@ -212,7 +212,7 @@ const PRODUCTS = [
 <p><a href="${SAMPLE_BASE}/quant-ja-sample.pdf">📥 無料サンプルPDFをダウンロード</a> — 目次と第1〜2章を含む</p>
 
 <h3>📋 詳細</h3>
-<p>日本語 · PDF · 約350ページ · Pythonソースコード完全収録</p>`,
+<p>日本語 · PDF · 約350ページ · Python主要ソースコード収録</p>`,
     },
   },
 ];
