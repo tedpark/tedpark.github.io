@@ -4,6 +4,7 @@ subtitle: "커버 추출, 6개 상품 API 자동화, LemonSqueezy 대신 Gumroad
 date: "2026-04-21"
 tags: ["Ebook", "Gumroad", "SvelteKit", "GitHub Pages", "Automation", "Side Project"]
 summary: "전자책 두 권을 만들고 Gumroad에 올려서 판매까지 자동화한 과정을 정리했다. PDF 빌드 스크립트, 커버 이미지 추출, Gumroad API로 상품 6개(언어별 3개씩) 자동 등록, GitHub Pages 정적 호스팅 연동까지. LemonSqueezy가 더 유명하지만 API 문제로 Gumroad를 쓴 이유도 솔직하게 썼다."
+lang: ko
 ---
 
 > **TL;DR.** 전자책 2권 × 언어 3개 = Gumroad 상품 6개를 스크립트 한 방에 등록했다.

@@ -1,8 +1,15 @@
 <script lang="ts">
 	import SiteNav from '$lib/components/SiteNav.svelte';
 	import type { PageProps } from './$types';
+	import type { Lang } from '$lib/data/posts';
 
 	let { data }: PageProps = $props();
+
+	const langLabel: Record<Lang, string> = { en: 'EN', ko: '한국어', ja: '日本語' };
+	const langOrder: Lang[] = ['en', 'ko', 'ja'];
+
+	// available langs sorted by preferred order
+	const availableLangs = langOrder.filter((l) => l in data.translations);
 </script>
 
 <svelte:head>
@@ -22,11 +29,32 @@
 
 	<!-- Header -->
 	<header class="max-w-3xl mx-auto px-6 pt-40 pb-10">
-		<div class="flex items-center gap-3 mb-6">
+		<div class="flex items-center justify-between gap-3 mb-6">
 			<a
 				href="/blog"
 				class="text-[10px] font-mono text-muted-foreground/60 hover:text-foreground transition-colors tracking-[0.15em] uppercase"
 			>← All posts</a>
+
+			<!-- Language switcher (only when translations exist) -->
+			{#if availableLangs.length > 1}
+				<div class="flex items-center gap-1">
+					{#each availableLangs as lang}
+						{@const t = data.translations[lang]}
+						{#if t}
+							{#if lang === data.post.lang}
+								<span class="text-[10px] font-mono px-2.5 py-1 rounded border border-foreground/30 text-foreground bg-foreground/5">
+									{langLabel[lang]}
+								</span>
+							{:else}
+								<a
+									href={`/blog/${t.slug}`}
+									class="text-[10px] font-mono px-2.5 py-1 rounded border border-border/40 text-muted-foreground/70 hover:text-foreground hover:border-foreground/30 transition-colors"
+								>{langLabel[lang]}</a>
+							{/if}
+						{/if}
+					{/each}
+				</div>
+			{/if}
 		</div>
 
 		<h1 class="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] mb-4">

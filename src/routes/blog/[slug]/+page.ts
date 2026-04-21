@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { posts, getPost } from '$lib/data/posts';
+import { posts, getPost, getTranslations } from '$lib/data/posts';
 import type { Component } from 'svelte';
 import type { PageLoad } from './$types';
 
@@ -22,5 +22,7 @@ export const load: PageLoad = async ({ params }) => {
 		throw error(404, 'Post body missing');
 	}
 
-	return { post, Component };
+	const translations = getTranslations(post.baseslug);
+
+	return { post, Component, translations };
 };

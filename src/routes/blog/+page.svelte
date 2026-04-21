@@ -1,13 +1,23 @@
 <script lang="ts">
 	import { posts } from '$lib/data/posts';
+	import type { Lang } from '$lib/data/posts';
 	import SiteNav from '$lib/components/SiteNav.svelte';
+
+	type Filter = 'all' | Lang;
+	let activeLang = $state<Filter>('all');
+
+	const langLabel: Record<Lang, string> = { en: 'EN', ko: '한국어', ja: '日本語' };
+
+	const filteredPosts = $derived(
+		activeLang === 'all' ? posts : posts.filter((p) => p.lang === activeLang)
+	);
 </script>
 
 <svelte:head>
 	<title>Blog · Ted Park</title>
 	<meta
 		name="description"
-		content="Notes on reinforcement learning, MLOps, and quantitative finance — from a 4-year solo build of a stat-arb trading system."
+		content="Notes on reinforcement learning, MLOps, and quantitative finance."
 	/>
 </svelte:head>
 
@@ -15,7 +25,7 @@
 	<SiteNav label="Blog" />
 
 	<!-- Header -->
-	<section class="max-w-3xl mx-auto px-6 pt-40 pb-16">
+	<section class="max-w-3xl mx-auto px-6 pt-40 pb-10">
 		<p class="text-[11px] font-mono text-muted-foreground tracking-[0.3em] uppercase mb-6">
 			Notes · Build Logs
 		</p>
@@ -24,21 +34,35 @@
 			<span class="text-foreground/35">what I built.</span>
 		</h1>
 		<p class="text-foreground/60 text-lg leading-relaxed max-w-xl">
-			Reinforcement learning, MLOps, and quantitative finance —
-			grounded in a four-year solo build of a SAC pair-trading system.
-			Every post links to runnable code and real benchmark numbers.
+			Reinforcement learning, MLOps, quantitative finance — backed by code and real numbers.
 		</p>
+	</section>
+
+	<!-- Language filter -->
+	<section class="max-w-3xl mx-auto px-6 pb-8">
+		<div class="flex items-center gap-2">
+			{#each (['all', 'en', 'ko', 'ja'] as const) as f}
+				<button
+					onclick={() => (activeLang = f)}
+					class="text-[10px] font-mono px-3 py-1.5 rounded border transition-colors {activeLang === f
+						? 'border-foreground/40 text-foreground bg-foreground/5'
+						: 'border-border/40 text-muted-foreground/60 hover:text-foreground hover:border-foreground/25'}"
+				>
+					{f === 'all' ? 'ALL' : langLabel[f]}
+				</button>
+			{/each}
+		</div>
 	</section>
 
 	<!-- Post list -->
 	<section class="max-w-3xl mx-auto px-6 pb-24">
-		{#if posts.length === 0}
-			<p class="text-muted-foreground text-sm font-mono">
-				No posts yet — the first one is on the way.
+		{#if filteredPosts.length === 0}
+			<p class="text-muted-foreground text-sm font-mono py-10">
+				No posts in this language yet.
 			</p>
 		{:else}
 			<ul class="divide-y divide-border/40">
-				{#each posts as post}
+				{#each filteredPosts as post}
 					<li>
 						<a
 							href={`/blog/${post.slug}`}
@@ -54,6 +78,16 @@
 								<span class="text-border/80">·</span>
 								<span class="text-[10px] font-mono text-muted-foreground/60">
 									{post.readingTime} min
+								</span>
+								<span class="text-border/80">·</span>
+								<span
+									class="text-[10px] font-mono px-1.5 py-0.5 rounded border {post.lang === 'ko'
+										? 'border-emerald-500/40 text-emerald-400/80'
+										: post.lang === 'ja'
+											? 'border-purple-500/40 text-purple-400/80'
+											: 'border-border/50 text-muted-foreground/50'}"
+								>
+									{langLabel[post.lang]}
 								</span>
 							</div>
 

@@ -12,6 +12,8 @@
  *      ``/blog/my-post-slug`` on the next dev/build cycle.
  */
 
+export type Lang = 'en' | 'ko' | 'ja';
+
 export type PostFrontmatter = {
 	title: string;
 	subtitle?: string;
@@ -20,10 +22,13 @@ export type PostFrontmatter = {
 	summary: string;
 	draft?: boolean;
 	canonical?: string;
+	lang?: Lang; // explicit override; auto-detected from slug suffix if absent
 };
 
 export type PostMeta = PostFrontmatter & {
 	slug: string;
+	lang: Lang;
+	baseslug: string; // slug without .ko / .ja / .en suffix
 	readingTime: number; // minutes (rough)
 };
 
@@ -40,6 +45,17 @@ function _slugFromPath(p: string): string {
 	return base.replace(/\.md$/, '');
 }
 
+function _langFromSlug(slug: string): Lang {
+	if (slug.endsWith('.ko')) return 'ko';
+	if (slug.endsWith('.ja')) return 'ja';
+	if (slug.endsWith('.en')) return 'en';
+	return 'en';
+}
+
+function _baseslug(slug: string): string {
+	return slug.replace(/\.(ko|ja|en)$/, '');
+}
+
 // Rough reading time: count words in the summary as a stable proxy when we
 // don't have raw markdown handy in this index module. Posts can override by
 // adding ``readingTime`` to front-matter (not yet implemented; KISS for now).
@@ -51,9 +67,14 @@ function _approxReadingTime(fm: PostFrontmatter): number {
 export const posts: PostMeta[] = Object.entries(modules)
 	.map(([path, mod]) => {
 		const fm = mod.metadata;
+		const slug = _slugFromPath(path);
+		const lang: Lang = fm.lang ?? _langFromSlug(slug);
+		const baseslug = _baseslug(slug);
 		return {
 			...fm,
-			slug: _slugFromPath(path),
+			slug,
+			lang,
+			baseslug,
 			readingTime: _approxReadingTime(fm)
 		};
 	})
@@ -62,4 +83,13 @@ export const posts: PostMeta[] = Object.entries(modules)
 
 export function getPost(slug: string): PostMeta | undefined {
 	return posts.find((p) => p.slug === slug);
+}
+
+/** Returns all available language versions for a given baseslug. */
+export function getTranslations(baseslug: string): Partial<Record<Lang, PostMeta>> {
+	const result: Partial<Record<Lang, PostMeta>> = {};
+	for (const p of posts) {
+		if (p.baseslug === baseslug) result[p.lang] = p;
+	}
+	return result;
 }
