@@ -11,8 +11,7 @@
 
 <div class="min-h-screen">
 
-	<!-- Nav (shared with /blog) -->
-	<SiteNav label="Portfolio" />
+	<SiteNav />
 
 	<!-- Hero -->
 	<section class="max-w-5xl mx-auto px-6 pt-40 pb-20">
@@ -27,9 +26,8 @@
 		</h1>
 
 		<p class="text-foreground/60 text-lg leading-relaxed max-w-xl mb-10">
-			Writing on reinforcement learning, MLOps, and quantitative systems —
-			each post backed by runnable code and real benchmark numbers from a
-			four-year solo build of a SAC pair-trading system.
+			Reinforcement learning, MLOps, and quantitative systems —
+			with real code and benchmark numbers from a live trading system.
 		</p>
 
 		<!-- Stats strip -->
@@ -152,14 +150,68 @@
 		</section>
 	{/if}
 
-	<!-- ═══ 02 — Projects ═══ -->
+	<!-- ═══ 02 — Books ═══ -->
+	<section>
+		<div class="max-w-5xl mx-auto px-6">
+			<div class="flex items-center gap-4 py-7 border-t border-white/[0.1]">
+				<span class="text-[10px] font-mono text-muted-foreground/50 tracking-[0.35em] uppercase whitespace-nowrap">
+					02 — Books
+				</span>
+				<div class="h-px flex-1 bg-white/[0.06]"></div>
+				<a
+					href="/books"
+					class="text-[10px] font-mono text-muted-foreground/70 hover:text-foreground transition-colors tracking-[0.2em] uppercase whitespace-nowrap"
+				>All books ↗</a>
+			</div>
+		</div>
+
+		<div class="max-w-5xl mx-auto px-6 pb-24 md:pb-32">
+			<div class="grid md:grid-cols-2 gap-4">
+				<!-- Book 1: Tauri 2 -->
+				<a href="/books" class="group block rounded-xl border border-white/[0.08] hover:border-red-500/30 bg-gradient-to-br from-red-500/5 via-transparent to-transparent transition-all p-7">
+					<p class="text-[10px] font-mono text-red-400/80 tracking-[0.25em] uppercase mb-3">
+						Tauri 2 · Rust · SvelteKit
+					</p>
+					<h3 class="text-xl font-bold tracking-tight leading-tight mb-2 group-hover:text-foreground/85 transition-colors">
+						Vibe Coding Tauri 2
+					</h3>
+					<p class="text-foreground/45 text-sm leading-relaxed mb-5">
+						AI 에이전트와 반복 루프로 Tauri 2 앱 4개 + TUI 앱 2개를 완성한 실전 기록.
+					</p>
+					<div class="flex items-center justify-between">
+						<span class="text-[10px] font-mono text-muted-foreground/60">18 chapters · PDF</span>
+						<span class="text-[11px] font-mono text-foreground/60 group-hover:text-foreground transition-colors">$17 →</span>
+					</div>
+				</a>
+
+				<!-- Book 2: Quant -->
+				<a href="/books" class="group block rounded-xl border border-white/[0.08] hover:border-blue-500/30 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent transition-all p-7">
+					<p class="text-[10px] font-mono text-blue-400/80 tracking-[0.25em] uppercase mb-3">
+						Python · HMM · SAC RL · IBKR
+					</p>
+					<h3 class="text-xl font-bold tracking-tight leading-tight mb-2 group-hover:text-foreground/85 transition-colors">
+						Stock Trading AI 실전 구현
+					</h3>
+					<p class="text-foreground/45 text-sm leading-relaxed mb-5">
+						OOS Sharpe 3.716, IBKR 라이브 32 페어. 실제 운영 중인 퀀트 시스템의 전체 아키텍처.
+					</p>
+					<div class="flex items-center justify-between">
+						<span class="text-[10px] font-mono text-muted-foreground/60">27 chapters · PDF</span>
+						<span class="text-[11px] font-mono text-foreground/60 group-hover:text-foreground transition-colors">$22 →</span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- ═══ 03 — Projects ═══ -->
 	{#each projects as project, i}
 		<section>
 			<!-- Labeled divider -->
 			<div class="max-w-5xl mx-auto px-6">
 				<div class="flex items-center gap-4 py-7 border-t border-white/[0.1]">
 					<span class="text-[10px] font-mono text-muted-foreground/50 tracking-[0.35em] uppercase whitespace-nowrap">
-						{['02 — Live System', '03 — Side Project', '04 — Side Project'][i]}
+						{['03 — Live System', '04 — Side Project', '05 — Side Project'][i]}
 					</span>
 					<div class="h-px flex-1 bg-white/[0.06]"></div>
 				</div>

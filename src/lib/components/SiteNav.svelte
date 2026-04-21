@@ -6,7 +6,7 @@ The ``label`` prop lets each route brand its own header (e.g. PORTFOLIO / BLOG)
 without forking a second nav.
 -->
 <script lang="ts">
-	let { label = 'Portfolio' }: { label?: string } = $props();
+	let { label = 'Ted Park' }: { label?: string } = $props();
 </script>
 
 <nav
