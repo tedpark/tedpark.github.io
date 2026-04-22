@@ -19,6 +19,10 @@ without forking a second nav.
 		>{label}</a>
 		<div class="flex items-center gap-6">
 			<a
+				href="/portfolio"
+				class="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-mono uppercase tracking-[0.2em]"
+			>Portfolio</a>
+			<a
 				href="/blog"
 				class="text-[11px] text-muted-foreground hover:text-foreground transition-colors font-mono uppercase tracking-[0.2em]"
 			>Blog</a>

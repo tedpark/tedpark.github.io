@@ -205,6 +205,7 @@
 	</section>
 
 	<!-- ═══ 03 — Projects ═══ -->
+	<div id="portfolio"></div>
 	{#each projects as project, i}
 		<section>
 			<!-- Labeled divider -->
