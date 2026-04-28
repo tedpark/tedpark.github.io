@@ -2,8 +2,38 @@ import adapter from '@sveltejs/adapter-static';
 import { mdsvex } from 'mdsvex';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { createHighlighter } from 'shiki';
 
 const _projectRoot = dirname(fileURLToPath(import.meta.url));
+
+// Pre-build the shiki highlighter once (reused across all mdsvex compilations).
+const shikiHighlighter = await createHighlighter({
+	themes: ['github-dark', 'github-light'],
+	langs: ['python', 'typescript', 'javascript', 'bash', 'json', 'yaml', 'rust', 'sql', 'html', 'css', 'svelte', 'diff', 'toml', 'dockerfile']
+});
+
+/**
+ * mdsvex highlight function powered by shiki.
+ * Returns HTML string with inline styles (no external CSS needed).
+ */
+function shikiHighlight(code, lang) {
+	if (!lang) lang = 'text';
+	try {
+		let html = shikiHighlighter.codeToHtml(code, {
+			lang,
+			themes: { dark: 'github-dark', light: 'github-light' },
+			defaultColor: 'dark'
+		});
+		// Escape curly braces so Svelte doesn't interpret them as expressions.
+		// Only escape inside <code> content, not in HTML attributes.
+		html = html.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;');
+		return html;
+	} catch {
+		const escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+			.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;');
+		return `<pre><code>${escaped}</code></pre>`;
+	}
+}
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,17 +41,13 @@ const config = {
 	preprocess: [
 		mdsvex({
 			extensions: ['.svx', '.md'],
-			// Posts get wrapped in our blog post layout (typography, code blocks).
-			// The layout path must be an absolute fs path or a node-resolvable
-			// import — relative paths like 'src/lib/...' get treated as packages.
 			layout: {
 				_: resolve(_projectRoot, 'src/lib/components/blog/PostLayout.svelte')
 			},
-			// Disable smartypants — it converts straight quotes (and other ASCII
-			// punctuation) which then breaks code samples and `$math$` clashes
-			// with Svelte 5 runes. We render math via Unicode + code blocks
-			// instead of KaTeX for now, which avoids the whole class of issues.
-			smartypants: false
+			smartypants: false,
+			highlight: {
+				highlighter: async (code, lang) => shikiHighlight(code, lang)
+			}
 		})
 	],
 	compilerOptions: {
