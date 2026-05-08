@@ -7,16 +7,16 @@
 	const recentPosts = posts.slice(0, 3);
 	const reviewerPoints = [
 		{
-			label: 'Finance / MTS Domain',
-			value: 'Kiwoom MTS chart/platform experience extended into trading APIs, broker execution, QuestDB time-series storage, and market-data pipelines.'
+			label: 'RAG / Agent Systems',
+			value: 'LangGraph 8-node RAG, FAISS/BM25 hybrid retrieval, Cross-Encoder reranking, RAGAS evaluation, and Supervisor-style multi-agent workflows.'
 		},
 		{
-			label: 'AI Engineering',
-			value: 'Built RL training and serving flows with SAC/PPO/QR-DQN, MLflow, FastAPI, and risk-aware sizing experiments.'
+			label: 'AI Backend / Serving',
+			value: 'Python/FastAPI APIs, SSE streaming, Docker deployment, model hot reload, MLflow registry, and production-oriented observability.'
 		},
 		{
-			label: 'Agent Workflow',
-			value: 'Uses Codex and Claude Code in development, then turns LLM output into tested systems, RAG agents, and desktop apps.'
+			label: 'Applied Product Work',
+			value: 'Turns LLM output into tested features: RAG chat, manuscript editing agents, PDF translation, AI coaching, and trading inference services.'
 		}
 	];
 </script>
@@ -29,28 +29,28 @@
 	<section class="max-w-5xl mx-auto px-6 pt-40 pb-20">
 
 		<p class="text-[11px] font-mono text-muted-foreground tracking-[0.3em] uppercase mb-6">
-			Quant Developer · AI Engineer
+			AI Engineer · RAG / Agent Systems
 		</p>
 
 		<h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
-			Alpha Research<br />
-			<span class="text-foreground/35">to Live Execution.</span>
+			RAG Agents<br />
+			<span class="text-foreground/35">to Production AI.</span>
 		</h1>
 
 		<p class="text-foreground/60 text-lg leading-relaxed max-w-xl mb-10">
-			ML-powered stat-arb — HMM regime classification, SAC RL sizing, ensemble signals.<br />
-			32 active pairs on IBKR · OOS Sharpe 3.716 · Built and operated solo.
+			LangGraph RAG, multi-agent orchestration, FastAPI model serving,<br />
+			and data pipelines built into working products.
 		</p>
 
 		<!-- Stats strip -->
 		<div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-mono text-muted-foreground">
-			<span>3 Projects</span>
+			<span>{projects.length} Projects</span>
 			<span class="text-border/80">·</span>
-			<span>Live on IBKR</span>
+			<span>LangGraph RAG</span>
 			<span class="text-border/80">·</span>
-			<span>OOS Sharpe 3.716</span>
+			<span>FastAPI + Docker</span>
 			<span class="text-border/80">·</span>
-			<span>HMM + SAC RL · Ensemble + TFT</span>
+			<span>Model Serving + Data Pipelines</span>
 		</div>
 	</section>
 
@@ -82,12 +82,12 @@
 
 	<!-- ═══ Projects ═══ -->
 	{#each projects as project, i}
-		<section>
+		<section id={project.id} class="scroll-mt-20">
 			<!-- Labeled divider -->
 			<div class="max-w-5xl mx-auto px-6">
 				<div class="flex items-center gap-4 py-7 border-t border-white/10">
 					<span class="text-[10px] font-mono text-muted-foreground/50 tracking-[0.35em] uppercase whitespace-nowrap">
-						{['01 — Live System', '02 — Side Project', '03 — Side Project'][i]}
+						{['01 — RAG System', '02 — Agent Workflow', '03 — Model Serving', '04 — LLM App', '05 — AI App'][i] ?? `${String(i + 1).padStart(2, '0')} — Project`}
 					</span>
 					<div class="h-px flex-1 bg-white/6"></div>
 				</div>

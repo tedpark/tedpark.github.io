@@ -24,6 +24,68 @@ export type Project = {
 
 export const projects: Project[] = [
 	{
+		id: 'chatbout-ai',
+		title: 'ChatBout AI',
+		subtitle: 'LangGraph RAG + Multi-Agent System',
+		period: '2024 – 2026',
+		description:
+			'A production-oriented RAG backend that turns documents into grounded answers through an 8-node LangGraph workflow. The graph classifies the request, rewrites queries, retrieves from hybrid search, reranks candidates, grades relevance, generates the answer, and runs a hallucination check before returning the response. A second LangGraph supervisor routes complex requests across specialized RAG, Code, Analysis, and Chitchat workers, then aggregates the result. The system is exposed through FastAPI endpoints with SSE streaming, Docker deployment, RAGAS evaluation, and LangSmith tracing.',
+		reviewerSummary: [
+			'RAG system: classify → query transform → retrieve → rerank → grade → generate → hallucination check.',
+			'Search quality: FAISS/BM25 hybrid retrieval, HyDE, multi-query expansion, Cross-Encoder reranking, RAGAS metrics.',
+			'Agent orchestration: LangGraph Supervisor + 4 workers, multi-hop chaining, FastAPI endpoints, Docker deployment.'
+		],
+		highlights: [
+			'8-node LangGraph StateGraph with conditional routing and Self-RAG retry loops',
+			'FAISS/BM25/Hybrid retrievers with CacheBackedEmbeddings, MMR, HyDE, and 3-way multi-query expansion',
+			'Cross-Encoder reranking using ms-marco-MiniLM to reorder top-k retrieval candidates',
+			'LangGraph Supervisor pattern with RAG, Code, Analysis, and Chitchat workers',
+			'RAGAS evaluation: faithfulness, answer relevancy, context precision, context recall',
+			'Gold-standard Precision/Recall@k regression checks and LangSmith tracing',
+			'11 FastAPI endpoints including health, metrics, evaluate, bandit, invoke, and SSE chat paths',
+			'Docker deployment with embedding cache volume and service-oriented API boundaries'
+		],
+		tags: [
+			'Python', 'FastAPI', 'LangGraph', 'LangChain', 'Haystack', 'FAISS', 'BM25',
+			'RAGAS', 'LangSmith', 'MongoDB', 'Docker', 'Claude', 'OpenAI'
+		],
+		metrics: [
+			{ label: 'RAG Nodes', value: '8' },
+			{ label: 'Agents', value: '4' },
+			{ label: 'API Routes', value: '11' }
+		],
+		screenshots: []
+	},
+	{
+		id: 'book-writer-agent',
+		title: 'Book Writer Agent',
+		subtitle: 'LangGraph/RAG Manuscript Editing Workflow',
+		period: '2024 – 2026',
+		description:
+			'A manuscript editing agent built to turn English-first or translation-heavy drafts into natural Korean technical prose. The workflow uses LangGraph for staged writing and revision, ChromaDB for style retrieval, and SentenceTransformers for semantic search over reference books and blog samples. It preserves code blocks and headings, validates revised sections, detects length collapse or meta text leakage, and falls back to source text when revision quality fails. The pipeline was used on two technical books across Tauri 2 desktop app development and Python quant trading AI.',
+		reviewerSummary: [
+			'Agent workflow: outline → research → writer → editor → code review; RAG research → section edit → validation.',
+			'Vector retrieval: ChromaDB + ko-sroberta style search with file-hash incremental indexing.',
+			'Production guardrails: code/header masking, revised-block extraction, quality checks, fallback recovery.'
+		],
+		highlights: [
+			'LangGraph workflow for draft generation, research, editing, and validation',
+			'ChromaDB + jhgan/ko-sroberta-multitask for Korean technical style retrieval',
+			'Topic retrieval and writing-style retrieval combined into prompt-time context',
+			'9-step revision pipeline: literal translation removal, flow review, terminology unification, beginner explanation, polish',
+			'Code block and heading masking to keep technical structure stable during LLM rewriting',
+			'Fallback logic for missing code blocks, meta text, invalid revised tags, or severe length drop',
+			'Applied to 18 chapters of a Tauri 2 app book and 27 chapters of a Python quant trading AI book'
+		],
+		tags: ['Python', 'LangGraph', 'ChromaDB', 'RAG', 'Claude', 'SentenceTransformers', 'Markdown'],
+		metrics: [
+			{ label: 'Books', value: '2' },
+			{ label: 'Chapters', value: '45' },
+			{ label: 'Pipeline', value: '9-step' }
+		],
+		screenshots: []
+	},
+	{
 		id: 'stock-trading-ai',
 		title: 'Stock Trading AI',
 		subtitle: 'Statistical Arbitrage System · SAC RL · Live on IBKR',

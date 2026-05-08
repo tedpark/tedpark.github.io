@@ -19,10 +19,12 @@
 	}
 
 	function prev() {
+		if (project.screenshots.length === 0) return;
 		lightboxIndex = (lightboxIndex - 1 + project.screenshots.length) % project.screenshots.length;
 	}
 
 	function next() {
+		if (project.screenshots.length === 0) return;
 		lightboxIndex = (lightboxIndex + 1) % project.screenshots.length;
 	}
 
@@ -56,47 +58,65 @@
 		</div>
 	</div>
 
-	<!-- ② Screenshot -->
-	<div class="flex flex-col gap-3">
-		<!-- Main image with border frame -->
-		<div class="rounded-2xl p-px bg-white/[0.15]">
-			<button
-				type="button"
-				class="group w-full overflow-hidden rounded-[15px] hover:brightness-105 transition-all duration-300 cursor-zoom-in block"
-				onclick={() => openLightbox(activeIndex)}
-			>
-				<img
-					src={project.screenshots[activeIndex].src}
-					alt={project.screenshots[activeIndex].alt}
-					class="w-full object-cover block group-hover:scale-[1.015] transition-transform duration-700 ease-out"
-					loading={index === 0 ? 'eager' : 'lazy'}
-				/>
-			</button>
-		</div>
-
-		<!-- Thumbnail tray -->
-		{#if project.screenshots.length > 1}
-			<div class="flex gap-2 overflow-x-auto rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2.5">
-				{#each project.screenshots as shot, idx}
-					<div
-						class="flex-none rounded-[9px] p-px transition-all duration-200 {activeIndex === idx
-							? 'bg-white/60 shadow-[0_0_10px_rgba(255,255,255,0.12)]'
-							: 'bg-white/[0.07] hover:bg-white/20'}"
-					>
-						<button
-							type="button"
-							class="w-16 h-10 rounded-[8px] overflow-hidden block cursor-pointer transition-all duration-200 {activeIndex === idx
-								? 'opacity-100'
-								: 'opacity-35 hover:opacity-65'}"
-							onclick={() => (activeIndex = idx)}
-						>
-							<img src={shot.src} alt={shot.alt} class="w-full h-full object-cover" />
-						</button>
-					</div>
-				{/each}
+	<!-- ② Evidence panel / Screenshot -->
+	{#if project.screenshots.length > 0}
+		<div class="flex flex-col gap-3">
+			<div class="rounded-2xl p-px bg-white/[0.15]">
+				<button
+					type="button"
+					class="group w-full overflow-hidden rounded-[15px] hover:brightness-105 transition-all duration-300 cursor-zoom-in block"
+					onclick={() => openLightbox(activeIndex)}
+				>
+					<img
+						src={project.screenshots[activeIndex].src}
+						alt={project.screenshots[activeIndex].alt}
+						class="w-full object-cover block group-hover:scale-[1.015] transition-transform duration-700 ease-out"
+						loading={index === 0 ? 'eager' : 'lazy'}
+					/>
+				</button>
 			</div>
-		{/if}
-	</div>
+
+			{#if project.screenshots.length > 1}
+				<div class="flex gap-2 overflow-x-auto rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2.5">
+					{#each project.screenshots as shot, idx}
+						<div
+							class="flex-none rounded-[9px] p-px transition-all duration-200 {activeIndex === idx
+								? 'bg-white/60 shadow-[0_0_10px_rgba(255,255,255,0.12)]'
+								: 'bg-white/[0.07] hover:bg-white/20'}"
+						>
+							<button
+								type="button"
+								class="w-16 h-10 rounded-[8px] overflow-hidden block cursor-pointer transition-all duration-200 {activeIndex === idx
+									? 'opacity-100'
+									: 'opacity-35 hover:opacity-65'}"
+								onclick={() => (activeIndex = idx)}
+							>
+								<img src={shot.src} alt={shot.alt} class="w-full h-full object-cover" />
+							</button>
+						</div>
+					{/each}
+				</div>
+			{/if}
+		</div>
+	{:else}
+		<div class="rounded-2xl p-px bg-white/[0.15]">
+			<div class="rounded-[15px] border border-white/[0.06] bg-[#111] px-5 py-6 md:px-7 md:py-8">
+				<div class="flex items-center justify-between gap-4 border-b border-white/[0.08] pb-4 mb-5">
+					<p class="text-[11px] font-mono uppercase tracking-[0.24em] text-muted-foreground">
+						System evidence
+					</p>
+					<span class="text-[11px] font-mono text-foreground/35">{project.title}</span>
+				</div>
+				<div class="grid md:grid-cols-3 gap-3">
+					{#each project.reviewerSummary as item}
+						<div class="rounded-md border border-white/[0.08] bg-white/[0.035] p-4">
+							<p class="text-sm leading-relaxed text-foreground/72">{item}</p>
+						</div>
+					{/each}
+				</div>
+			</div>
+		</div>
+	{/if}
 
 	<!-- ③ Metrics -->
 	<div class="grid sm:grid-cols-3 gap-px bg-white/[0.07] rounded-xl overflow-hidden ring-1 ring-white/[0.07]">
