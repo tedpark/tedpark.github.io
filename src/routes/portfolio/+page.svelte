@@ -5,6 +5,20 @@
 	import SiteNav from '$lib/components/SiteNav.svelte';
 
 	const recentPosts = posts.slice(0, 3);
+	const reviewerPoints = [
+		{
+			label: 'Finance / MTS Domain',
+			value: 'Kiwoom MTS chart/platform experience extended into trading APIs, broker execution, QuestDB time-series storage, and market-data pipelines.'
+		},
+		{
+			label: 'AI Engineering',
+			value: 'Built RL training and serving flows with SAC/PPO/QR-DQN, MLflow, FastAPI, and risk-aware sizing experiments.'
+		},
+		{
+			label: 'Agent Workflow',
+			value: 'Uses Codex and Claude Code in development, then turns LLM output into tested systems, RAG agents, and desktop apps.'
+		}
+	];
 </script>
 
 <div class="min-h-screen">
@@ -37,6 +51,32 @@
 			<span>OOS Sharpe 3.716</span>
 			<span class="text-border/80">·</span>
 			<span>HMM + SAC RL · Ensemble + TFT</span>
+		</div>
+	</section>
+
+	<!-- Recruiter summary -->
+	<section class="max-w-5xl mx-auto px-6 pb-16">
+		<div class="border-y border-white/10 py-8">
+			<div class="flex flex-col gap-2 mb-7">
+				<p class="text-[11px] font-mono text-muted-foreground tracking-[0.28em] uppercase">
+					For resume reviewers
+				</p>
+				<h2 class="text-2xl md:text-3xl font-semibold tracking-tight">
+					What this portfolio proves at a glance
+				</h2>
+			</div>
+			<div class="grid md:grid-cols-3 gap-3">
+				{#each reviewerPoints as point}
+					<div class="rounded-md border border-white/10 bg-white/[0.035] p-4">
+						<p class="text-[11px] font-mono uppercase tracking-[0.16em] text-foreground/45 mb-3">
+							{point.label}
+						</p>
+						<p class="text-sm leading-relaxed text-foreground/75">
+							{point.value}
+						</p>
+					</div>
+				{/each}
+			</div>
 		</div>
 	</section>
 

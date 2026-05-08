@@ -21,6 +21,7 @@ export const techLinks: Record<string, string> = {
 
 	// Data / DB
 	DuckDB:         'https://duckdb.org/',
+	QuestDB:        'https://questdb.io/',
 	MongoDB:        'https://www.mongodb.com/',
 	Redis:          'https://redis.io/',
 	'FMP API':      'https://site.financialmodelingprep.com/',
@@ -41,8 +42,6 @@ export const techLinks: Record<string, string> = {
 	'Claude API':   'https://docs.anthropic.com/',
 	Claude:         'https://docs.anthropic.com/',
 	OpenAI:         'https://platform.openai.com/',
-	Gemini:         'https://ai.google.dev/',
-	Groq:           'https://groq.com/',
 
 	// PDF
 	'pdfjs-dist':   'https://mozilla.github.io/pdf.js/',

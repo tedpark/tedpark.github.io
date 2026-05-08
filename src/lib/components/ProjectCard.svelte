@@ -33,7 +33,7 @@
 		if (e.key === 'ArrowRight') next();
 	}
 
-	const numberLabel = ['01', '02', '03'][index] ?? String(index + 1).padStart(2, '0');
+	const numberLabel = $derived(['01', '02', '03'][index] ?? String(index + 1).padStart(2, '0'));
 </script>
 
 <svelte:window onkeydown={handleKey} />
@@ -99,7 +99,7 @@
 	</div>
 
 	<!-- ③ Metrics -->
-	<div class="grid grid-cols-3 gap-px bg-white/[0.07] rounded-xl overflow-hidden ring-1 ring-white/[0.07]">
+	<div class="grid sm:grid-cols-3 gap-px bg-white/[0.07] rounded-xl overflow-hidden ring-1 ring-white/[0.07]">
 		{#each project.metrics as metric}
 			<div class="bg-[#141414] px-5 py-4 flex flex-col gap-1.5">
 				<p class="text-[11px] font-mono text-muted-foreground uppercase tracking-widest">{metric.label}</p>
@@ -109,9 +109,25 @@
 	</div>
 
 	<!-- ④ Description -->
-	<p class="text-foreground/75 text-[17px] leading-[1.85] max-w-3xl">
-		{project.description}
-	</p>
+	<div class="grid lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] gap-8 items-start">
+		<p class="text-foreground/75 text-[16px] md:text-[17px] leading-[1.8]">
+			{project.description}
+		</p>
+
+		<div class="rounded-md border border-white/[0.09] bg-white/[0.035] p-4">
+			<p class="text-[11px] font-mono text-muted-foreground tracking-[0.2em] uppercase mb-4">
+				Reviewer quick read
+			</p>
+			<ul class="flex flex-col gap-3">
+				{#each project.reviewerSummary as item}
+					<li class="flex gap-3 items-start">
+						<span class="flex-none mt-[7px] w-[5px] h-[5px] rounded-full bg-foreground/45"></span>
+						<span class="text-sm text-foreground/75 leading-relaxed">{item}</span>
+					</li>
+				{/each}
+			</ul>
+		</div>
+	</div>
 
 	<!-- ⑤ Highlights -->
 	<div class="grid sm:grid-cols-2 gap-x-12 gap-y-4">
@@ -164,7 +180,11 @@
 		class="fixed inset-0 z-[200] bg-black/96 flex items-center justify-center"
 		role="dialog"
 		aria-modal="true"
+		tabindex="-1"
 		onclick={closeLightbox}
+		onkeydown={(e) => {
+			if (e.key === 'Enter' || e.key === ' ') closeLightbox();
+		}}
 	>
 		<!-- Top bar -->
 		<div class="absolute top-0 inset-x-0 h-14 flex items-center justify-between px-6">
