@@ -4,9 +4,9 @@
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import SiteNav from '$lib/components/SiteNav.svelte';
 
-	// Featured post = latest. Rest = every other recent post (up to 5).
-	const featured = posts[0];
-	const recent = posts.slice(1, 6);
+	const englishPosts = posts.filter((post) => post.lang === 'en');
+	const featured = englishPosts[0];
+	const recent = englishPosts.slice(1, 6);
 </script>
 
 <div class="min-h-screen">
@@ -32,9 +32,9 @@
 
 		<!-- Stats strip -->
 		<div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-mono text-muted-foreground">
-			<span>{posts.length} Posts</span>
+			<span>{englishPosts.length} English Posts</span>
 			<span class="text-border/80">·</span>
-			<span>3 Projects</span>
+			<span>{projects.length} Projects</span>
 			<span class="text-border/80">·</span>
 			<span>Live on IBKR</span>
 			<span class="text-border/80">·</span>
@@ -176,7 +176,7 @@
 						Vibe Coding Tauri 2
 					</h3>
 					<p class="text-foreground/45 text-sm leading-relaxed mb-5">
-						AI 에이전트와 반복 루프로 Tauri 2 앱 4개 + TUI 앱 2개를 완성한 실전 기록.
+						A hands-on record of building 4 Tauri 2 desktop apps and 2 Rust TUI apps with an AI agent loop.
 					</p>
 					<div class="flex items-center justify-between">
 						<span class="text-[10px] font-mono text-muted-foreground/60">18 chapters · PDF</span>
@@ -190,10 +190,10 @@
 						Python · HMM · SAC RL · IBKR
 					</p>
 					<h3 class="text-xl font-bold tracking-tight leading-tight mb-2 group-hover:text-foreground/85 transition-colors">
-						Stock Trading AI 실전 구현
+						Agentic Quant Trading with Python
 					</h3>
 					<p class="text-foreground/45 text-sm leading-relaxed mb-5">
-						OOS Sharpe 3.716, IBKR 라이브 32 페어. 실제 운영 중인 퀀트 시스템의 전체 아키텍처.
+						A production-style financial ML/RL systems book: HMM regimes, SAC / QR-DQN, CVaR risk control, and FastAPI serving.
 					</p>
 					<div class="flex items-center justify-between">
 						<span class="text-[10px] font-mono text-muted-foreground/60">27 chapters · PDF</span>

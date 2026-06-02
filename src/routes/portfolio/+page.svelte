@@ -4,7 +4,7 @@
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import SiteNav from '$lib/components/SiteNav.svelte';
 
-	const recentPosts = posts.slice(0, 3);
+	const recentPosts = posts.filter((post) => post.lang === 'en').slice(0, 3);
 	const reviewerPoints = [
 		{
 			label: 'RAG / Agent Systems',

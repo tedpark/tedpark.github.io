@@ -4,9 +4,9 @@
 	import SiteNav from '$lib/components/SiteNav.svelte';
 
 	type Filter = 'all' | Lang;
-	let activeLang = $state<Filter>('all');
+	let activeLang = $state<Filter>('en');
 
-	const langLabel: Record<Lang, string> = { en: 'EN', ko: '한국어', ja: '日本語' };
+	const langLabel: Record<Lang, string> = { en: 'English', ko: 'Korean', ja: 'Japanese' };
 
 	const filteredPosts = $derived(
 		activeLang === 'all' ? posts : posts.filter((p) => p.lang === activeLang)

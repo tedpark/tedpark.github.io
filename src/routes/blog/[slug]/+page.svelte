@@ -5,7 +5,7 @@
 
 	let { data }: PageProps = $props();
 
-	const langLabel: Record<Lang, string> = { en: 'EN', ko: '한국어', ja: '日本語' };
+	const langLabel: Record<Lang, string> = { en: 'English', ko: 'Korean', ja: 'Japanese' };
 	const langOrder: Lang[] = ['en', 'ko', 'ja'];
 
 	// available langs sorted by preferred order
