@@ -1,8 +1,8 @@
 <svelte:head>
 	<title>Books — Ted Park</title>
-	<meta name="description" content="Technical e-books by Ted Park. AI-assisted development — Tauri 2 desktop apps and Python quant trading systems. Korean · English · Japanese." />
+	<meta name="description" content="Technical books by Ted Park on AI-assisted software engineering, Tauri 2 desktop apps, and production-style Python quant trading systems." />
 	<meta property="og:title" content="Books — Ted Park" />
-	<meta property="og:description" content="AI로 실제 제품을 혼자 만드는 방법. 기술 전자책 2종. 한국어 · English · 日本語." />
+	<meta property="og:description" content="English-first technical books on building real software systems with AI agents, Tauri 2, Rust, Python, financial ML, and trading infrastructure." />
 
 </svelte:head>
 
@@ -11,11 +11,11 @@
 
 	// ─── Language ────────────────────────────────────────────────────────────
 	type Lang = 'ko' | 'en' | 'ja';
-	const langs: Lang[] = ['ko', 'en', 'ja'];
-	const langLabel: Record<Lang, string> = { ko: '한국어', en: 'English', ja: '日本語' };
+	const langs: Lang[] = ['en', 'ko', 'ja'];
+	const langLabel: Record<Lang, string> = { ko: 'Korean edition', en: 'English edition', ja: 'Japanese edition' };
 	const langFlag: Record<Lang, string> = { ko: '🇰🇷', en: '🇺🇸', ja: '🇯🇵' };
 
-	let activeLang = $state<Lang>('ko');
+	let activeLang = $state<Lang>('en');
 
 	// ─── Gumroad product checkout URLs ─────────────────────────────────────
 	const LS: Record<string, Record<Lang, string>> = {
@@ -36,8 +36,8 @@
 		id: string;
 		tag: string;
 		titleHtml: string;
-		subtitle: Record<Lang, string>;
-		desc: Record<Lang, string>;
+		subtitle: string;
+		desc: string;
 		chapters: number;
 		gradient: string;
 		borderHover: string;
@@ -45,6 +45,7 @@
 		price: Record<Lang, string>;
 		lsKey: string;
 		sample: string;
+		cover: string;
 		highlights: string[];
 	}
 
@@ -53,60 +54,46 @@
 			id: 'tauri2',
 			tag: 'Tauri 2 · Rust · SvelteKit · DuckDB',
 			titleHtml: 'Vibe Coding<br />Tauri 2',
-			subtitle: {
-				ko: '시간이 없어서 오히려 6개를 만들었다',
-				en: 'No Time — So I Built Six Apps Anyway',
-				ja: '時間がなかったから、6つ作った'
-			},
-			desc: {
-				ko: 'AI 에이전트와 반복 루프로 저녁 한두 시간만으로 Tauri 2 앱 4개 + TUI 앱 2개를 완성한 실전 기록. 요청 · 구현 · 검증 루프의 실제 작동 방식.',
-				en: 'A hands-on record of building 4 Tauri 2 desktop apps + 2 TUI apps in evening sessions using an AI agent loop. How the request–implement–verify cycle actually works.',
-				ja: 'AIエージェントのループを使い、夜の1〜2時間でTauri 2アプリ4本とTUIアプリ2本を完成させた実践記録。'
-			},
+			subtitle: 'No Time — So I Built Six Apps Anyway',
+			desc: 'A hands-on record of building 4 Tauri 2 desktop apps and 2 Rust TUI apps in evening sessions using an AI agent loop. The book focuses on the request, implementation, verification, and iteration patterns that made the work practical.',
 			chapters: 18,
 			gradient: 'from-red-500/10 via-transparent to-transparent',
 			borderHover: 'hover:border-red-500/40',
 			tagColor: 'text-red-400',
 			price: { ko: '₩22,000', en: '$17', ja: '¥2,500' },
 			lsKey: 'tauri2',
-			sample: '/sample/tauri2-ko-sample.pdf',
+			sample: '/sample/tauri2-en-sample.pdf',
+			cover: '/covers/tauri2-en-cover.jpg',
 			highlights: [
-				'ReadBooks.ai — PDF 번역 데스크톱 앱 (Claude API + pdfjs)',
-				'Mandai — Mandala Chart × GTD × Pomodoro 생산성 앱',
-				'Rust TUI — Ratatui + Tokio 터미널 대시보드 2종',
-				'Trading Monitor — IBKR 실시간 P&L Tauri 2 앱',
-				'Rust 백엔드 SSE 스트리밍 패턴 완전 구현',
-				'DuckDB 로컬 스토어 + Beanie ODM MongoDB 통합'
+				'ReadBooks.ai — a Tauri 2 desktop app for PDF translation with Claude API and pdfjs',
+				'Mandai — a Mandala Chart, GTD, and Pomodoro productivity app',
+				'Rust TUI dashboards built with Ratatui and Tokio',
+				'Trading Monitor — a Tauri 2 app for real-time IBKR P&L monitoring',
+				'Rust backend patterns for command handling and SSE streaming',
+				'DuckDB local storage and MongoDB integration patterns'
 			]
 		},
 		{
 			id: 'quant',
 			tag: 'Python · HMM · SAC RL · IBKR · FastAPI',
-			titleHtml: 'Stock Trading AI<br /><span style="opacity:0.4">실전 구현</span>',
-			subtitle: {
-				ko: 'HMM · SAC RL · 통계적 차익거래',
-				en: 'HMM · SAC RL · Statistical Arbitrage',
-				ja: 'HMM · SAC RL · 統計的裁定取引'
-			},
-			desc: {
-				ko: 'OOS Sharpe 3.716, IBKR 라이브 32 페어. HMM 레짐 분류기부터 SAC RL 포지션 사이징, FastAPI 서비스, Rust TUI 모니터링까지 — 실제 운영 중인 시스템의 전체 아키텍처.',
-				en: 'OOS Sharpe 3.716, live on IBKR with 32 pairs. Complete architecture of a running system — HMM regime classifier, SAC RL position sizing, FastAPI service layer, Rust TUI monitoring.',
-				ja: 'OOSシャープ比3.716、IBKR本番稼働中32ペア。HMMレジーム分類からSAC RLポジションサイジング、FastAPIサービス、Rust TUIモニタリングまで実際に動くシステムの全アーキテクチャ。'
-			},
+			titleHtml: 'Agentic Quant<br /><span style="opacity:0.4">Trading with Python</span>',
+			subtitle: 'HMM Regime Detection · SAC / QR-DQN · Statistical Arbitrage',
+			desc: 'A production-style financial ML/RL systems book covering a running architecture: HMM regime classification, Kalman spread modeling, SAC and QR-DQN agents, CVaR-aware risk control, FastAPI serving, MLflow tracking, and Rust TUI monitoring.',
 			chapters: 27,
 			gradient: 'from-blue-500/10 via-transparent to-transparent',
 			borderHover: 'hover:border-blue-500/40',
 			tagColor: 'text-blue-400',
 			price: { ko: '₩28,000', en: '$22', ja: '¥3,200' },
 			lsKey: 'quant',
-			sample: '/sample/quant-ko-sample.pdf',
+			sample: '/sample/quant-en-sample.pdf',
+			cover: '/covers/quant-en-cover.jpg',
 			highlights: [
-				'HMM 레짐 분류기 → 전략 라우터 구현',
-				'SAC RL 에이전트 포지션 사이징 (엔트로피 최대화)',
-				'XGBoost + LightGBM + CatBoost + TFT 앙상블',
-				'DuckDB 피처 스토어 + Optuna 하이퍼파라미터 튜닝',
-				'FastAPI + MongoDB (Beanie) + Redis 서비스 레이어',
-				'IBKR ib-async 실시간 주문 실행 + Rust TUI 모니터링'
+				'HMM regime detection and strategy routing',
+				'SAC reinforcement learning for position sizing',
+				'QR-DQN quantiles, CVaR-style tail risk, and exposure control',
+				'DuckDB feature store and Optuna hyperparameter search',
+				'FastAPI, MongoDB / Beanie, Redis, and MLflow-style serving patterns',
+				'IBKR integration concepts and Rust TUI monitoring architecture'
 			]
 		}
 	];
@@ -115,17 +102,17 @@
 		{
 			step: '01',
 			title: 'Choose & Buy',
-			desc: 'Lemon Squeezy 보안 결제. 카드 · PayPal · 21개 결제 수단. 전 세계 VAT 자동 처리.'
+			desc: 'Choose the English, Korean, or Japanese edition and complete checkout through Gumroad.'
 		},
 		{
 			step: '02',
 			title: 'Instant Download',
-			desc: '결제 즉시 PDF 다운로드 링크가 이메일로 전송됩니다.'
+			desc: 'The PDF download link is delivered immediately after purchase.'
 		},
 		{
 			step: '03',
 			title: 'Lifetime Updates',
-			desc: '책이 업데이트될 때마다 최신 버전 다운로드 링크 이메일 전달.'
+			desc: 'When the book is updated, you can access the latest version from the same product page.'
 		}
 	];
 </script>
@@ -136,23 +123,24 @@
 	<!-- ═══ Hero ═══ -->
 	<section class="max-w-5xl mx-auto px-6 pt-40 pb-20">
 		<p class="text-[11px] font-mono text-muted-foreground tracking-[0.3em] uppercase mb-6">
-			Technical E-Books · PDF · 한국어 · English · 日本語
+			Technical Books · PDF · English First · Korean and Japanese Editions Available
 		</p>
 
 		<h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
-			AI로 <span class="text-foreground">실제 제품</span>을<br />
-			<span class="text-foreground/35">혼자 만드는 방법.</span>
+			Technical books on<br />
+			<span class="text-foreground">building real systems</span><br />
+			<span class="text-foreground/35">with AI and code.</span>
 		</h1>
 
 		<p class="text-foreground/60 text-lg leading-relaxed max-w-xl mb-10">
-			AI 에이전트와 함께 일하는 방식을 다루는 기술 전자책 2종.<br />
-			실제로 만들고 실제로 운영 중인 시스템의 기록.
+			Two practical books from systems I actually built: Tauri 2 / Rust desktop apps
+			and a production-style financial ML/RL trading system in Python.
 		</p>
 
 		<!-- Language selector -->
 		<div class="flex items-center gap-3 mb-8">
 			<span class="text-[10px] font-mono text-muted-foreground/50 tracking-[0.3em] uppercase">
-				Language
+				Edition focus
 			</span>
 			<div class="flex gap-1">
 				{#each langs as lang}
@@ -173,7 +161,7 @@
 		<div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-mono text-muted-foreground">
 			<span>2 Books</span>
 			<span class="text-border/80">·</span>
-			<span>Korean · English · Japanese</span>
+			<span>English · Korean · Japanese</span>
 			<span class="text-border/80">·</span>
 			<span>PDF · Instant Download</span>
 			<span class="text-border/80">·</span>
@@ -202,20 +190,30 @@
 				>
 					<!-- Book header -->
 					<div class="bg-gradient-to-br {book.gradient} p-8 md:p-12 border-b border-white/[0.06]">
-						<span
-							class="text-[10px] font-mono {book.tagColor} tracking-[0.25em] uppercase mb-3 block"
-						>
-							{book.tag}
-						</span>
-						<h2 class="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
-							{@html book.titleHtml}
-						</h2>
-						<p class="text-xl text-foreground/60 mb-2">
-							{book.subtitle[activeLang]}
-						</p>
-						<p class="text-foreground/45 text-sm leading-relaxed max-w-2xl mb-8">
-							{book.desc[activeLang]}
-						</p>
+						<div class="grid gap-8 md:grid-cols-[1fr_13rem] md:items-start">
+							<div>
+								<span
+									class="text-[10px] font-mono {book.tagColor} tracking-[0.25em] uppercase mb-3 block"
+								>
+									{book.tag}
+								</span>
+								<h2 class="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] mb-4">
+									{@html book.titleHtml}
+								</h2>
+								<p class="text-xl text-foreground/60 mb-2">
+									{book.subtitle}
+								</p>
+								<p class="text-foreground/45 text-sm leading-relaxed max-w-2xl mb-8">
+									{book.desc}
+								</p>
+							</div>
+
+							<img
+								src={book.cover}
+								alt={`${book.id} book cover`}
+								class="w-full max-w-[13rem] rounded-lg border border-white/[0.12] bg-black/20 object-cover shadow-2xl shadow-black/30"
+							/>
+						</div>
 
 						<!-- Stats -->
 						<div
@@ -303,10 +301,9 @@
 			</div>
 
 			<div class="mt-8 flex items-center gap-3 text-[11px] font-mono text-muted-foreground/50">
-				<span>🍋</span>
+				<span>↗</span>
 				<span>
-					Powered by Lemon Squeezy — secure checkout, automatic global tax compliance, instant
-					delivery
+					Powered by Gumroad — secure checkout, instant PDF delivery, and hosted product updates
 				</span>
 			</div>
 		</div>
@@ -339,11 +336,13 @@
 						>
 							Author
 						</p>
-						<h3 class="text-xl font-bold mb-3">Ted Park (박승환)</h3>
+						<h3 class="text-xl font-bold mb-3">Ted Park</h3>
 						<p class="text-foreground/55 text-sm leading-relaxed max-w-2xl">
-							ML / Quant Engineer. 4년간 솔로로 통계적 차익거래 시스템을 설계·구현·운영 중 — HMM 레짐
-							분류, SAC RL 포지션 사이징, FastAPI 서비스, IBKR 라이브 실행까지 전 스택 직접 담당. Tauri
-							2 + Rust + SvelteKit으로 데스크톱 앱도 병행 제작. 이 책들은 그 과정의 실전 기록입니다.
+							Senior software engineer focused on production ML systems, financial time-series
+							engineering, and AI-assisted software development. I build the systems behind these
+							books myself: Tauri 2 / Rust desktop apps, Python trading infrastructure, HMM regime
+							detection, RL experiments, FastAPI model serving, and public technical writing around
+							what actually works.
 						</p>
 						<div
 							class="flex flex-wrap gap-6 mt-5 text-[11px] font-mono text-muted-foreground/60"
