@@ -2,6 +2,7 @@
 	import { posts } from '$lib/data/posts';
 	import type { Lang } from '$lib/data/posts';
 	import SiteNav from '$lib/components/SiteNav.svelte';
+	import AgentWriting from '$lib/components/AgentWriting.svelte';
 
 	type Filter = 'all' | Lang;
 	let activeLang = $state<Filter>('en');
@@ -17,7 +18,7 @@
 	<title>Blog · Ted Park</title>
 	<meta
 		name="description"
-		content="Notes on reinforcement learning, MLOps, and quantitative finance."
+		content="Engineering notes on AI agents, applied AI, retrieval, and research systems."
 	/>
 </svelte:head>
 
@@ -34,10 +35,11 @@
 			<span class="text-foreground/35">what I built.</span>
 		</h1>
 		<p class="text-foreground/60 text-lg leading-relaxed max-w-xl">
-			Reinforcement learning, MLOps, quantitative finance — backed by code and real numbers.
+			AI agents, applied AI workflows, and research systems. Earlier experiments retain their original publication dates; current agent-harness notes are on Medium.
 		</p>
 	</section>
 
+	<AgentWriting />
 	<!-- Language filter -->
 	<section class="max-w-3xl mx-auto px-6 pb-8">
 		<div class="flex items-center gap-2">

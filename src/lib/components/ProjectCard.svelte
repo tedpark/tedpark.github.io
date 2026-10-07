@@ -98,24 +98,6 @@
 				</div>
 			{/if}
 		</div>
-	{:else}
-		<div class="rounded-2xl p-px bg-white/[0.15]">
-			<div class="rounded-[15px] border border-white/[0.06] bg-[#111] px-5 py-6 md:px-7 md:py-8">
-				<div class="flex items-center justify-between gap-4 border-b border-white/[0.08] pb-4 mb-5">
-					<p class="text-[11px] font-mono uppercase tracking-[0.24em] text-muted-foreground">
-						System evidence
-					</p>
-					<span class="text-[11px] font-mono text-foreground/35">{project.title}</span>
-				</div>
-				<div class="grid md:grid-cols-3 gap-3">
-					{#each project.reviewerSummary as item}
-						<div class="rounded-md border border-white/[0.08] bg-white/[0.035] p-4">
-							<p class="text-sm leading-relaxed text-foreground/72">{item}</p>
-						</div>
-					{/each}
-				</div>
-			</div>
-		</div>
 	{/if}
 
 	<!-- ③ Metrics -->
@@ -157,6 +139,16 @@
 				<span class="text-sm text-foreground/72 leading-relaxed">{h}</span>
 			</div>
 		{/each}
+	</div>
+
+	<div class="rounded-xl border border-border bg-card p-5">
+		<p class="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2">Evidence and scope</p>
+		<p class="text-sm leading-relaxed text-foreground/75">{project.evidence}</p>
+		<div class="flex flex-wrap gap-x-5 gap-y-3 mt-4">
+			{#each project.links as link}
+				<a href={link.href} class="text-sm underline underline-offset-4 hover:text-foreground/70">{link.label} ↗</a>
+			{/each}
+		</div>
 	</div>
 
 	<!-- ⑥ Stack -->

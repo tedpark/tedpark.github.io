@@ -20,169 +20,270 @@ export type Project = {
 	github?: string;
 	period: string;
 	metrics: Metric[];
+	category: string;
+	evidence: string;
+	links: { label: string; href: string }[];
 };
 
 export const projects: Project[] = [
-	{
-		id: 'chatbout-ai',
-		title: 'ChatBout AI',
-		subtitle: 'LangGraph RAG + Multi-Agent System',
-		period: '2024 – 2026',
-		description:
-			'A production-oriented RAG backend that turns documents into grounded answers through an 8-node LangGraph workflow. The graph classifies the request, rewrites queries, retrieves from hybrid search, reranks candidates, grades relevance, generates the answer, and runs a hallucination check before returning the response. A second LangGraph supervisor routes complex requests across specialized RAG, Code, Analysis, and Chitchat workers, then aggregates the result. The system is exposed through FastAPI endpoints with SSE streaming, Docker deployment, RAGAS evaluation, and LangSmith tracing.',
-		reviewerSummary: [
-			'RAG system: classify → query transform → retrieve → rerank → grade → generate → hallucination check.',
-			'Search quality: FAISS/BM25 hybrid retrieval, HyDE, multi-query expansion, Cross-Encoder reranking, RAGAS metrics.',
-			'Agent orchestration: LangGraph Supervisor + 4 workers, multi-hop chaining, FastAPI endpoints, Docker deployment.'
-		],
-		highlights: [
-			'8-node LangGraph StateGraph with conditional routing and Self-RAG retry loops',
-			'FAISS/BM25/Hybrid retrievers with CacheBackedEmbeddings, MMR, HyDE, and 3-way multi-query expansion',
-			'Cross-Encoder reranking using ms-marco-MiniLM to reorder top-k retrieval candidates',
-			'LangGraph Supervisor pattern with RAG, Code, Analysis, and Chitchat workers',
-			'RAGAS evaluation: faithfulness, answer relevancy, context precision, context recall',
-			'Gold-standard Precision/Recall@k regression checks and LangSmith tracing',
-			'11 FastAPI endpoints including health, metrics, evaluate, bandit, invoke, and SSE chat paths',
-			'Docker deployment with embedding cache volume and service-oriented API boundaries'
-		],
-		tags: [
-			'Python', 'FastAPI', 'LangGraph', 'LangChain', 'Haystack', 'FAISS', 'BM25',
-			'RAGAS', 'LangSmith', 'MongoDB', 'Docker', 'Claude', 'OpenAI'
-		],
-		metrics: [
-			{ label: 'RAG Nodes', value: '8' },
-			{ label: 'Agents', value: '4' },
-			{ label: 'API Routes', value: '11' }
-		],
-		screenshots: []
-	},
-	{
-		id: 'book-writer-agent',
-		title: 'Book Writer Agent',
-		subtitle: 'LangGraph/RAG Manuscript Editing Workflow',
-		period: '2024 – 2026',
-		description:
-			'A manuscript editing agent built to turn English-first or translation-heavy drafts into natural Korean technical prose. The workflow uses LangGraph for staged writing and revision, ChromaDB for style retrieval, and SentenceTransformers for semantic search over reference books and blog samples. It preserves code blocks and headings, validates revised sections, detects length collapse or meta text leakage, and falls back to source text when revision quality fails. The pipeline was used on two technical books across Tauri 2 desktop app development and Python quant trading AI.',
-		reviewerSummary: [
-			'Agent workflow: outline → research → writer → editor → code review; RAG research → section edit → validation.',
-			'Vector retrieval: ChromaDB + ko-sroberta style search with file-hash incremental indexing.',
-			'Production guardrails: code/header masking, revised-block extraction, quality checks, fallback recovery.'
-		],
-		highlights: [
-			'LangGraph workflow for draft generation, research, editing, and validation',
-			'ChromaDB + jhgan/ko-sroberta-multitask for Korean technical style retrieval',
-			'Topic retrieval and writing-style retrieval combined into prompt-time context',
-			'9-step revision pipeline: literal translation removal, flow review, terminology unification, beginner explanation, polish',
-			'Code block and heading masking to keep technical structure stable during LLM rewriting',
-			'Fallback logic for missing code blocks, meta text, invalid revised tags, or severe length drop',
-			'Applied to 18 chapters of a Tauri 2 app book and 27 chapters of a Python quant trading AI book'
-		],
-		tags: ['Python', 'LangGraph', 'ChromaDB', 'RAG', 'Claude', 'SentenceTransformers', 'Markdown'],
-		metrics: [
-			{ label: 'Books', value: '2' },
-			{ label: 'Chapters', value: '45' },
-			{ label: 'Pipeline', value: '9-step' }
-		],
-		screenshots: []
-	},
-	{
-		id: 'stock-trading-ai',
-		title: 'Stock Trading AI',
-		subtitle: 'Statistical Arbitrage System · SAC RL · Live on IBKR',
-		period: '2022 – Present',
-		description:
-			'An ML-driven stat-arb system, designed and operated solo — from alpha research through live execution on IBKR. The core problem with statistical arbitrage is regime dependency: cointegration that holds in mean-reverting conditions deteriorates in trending regimes, causing pair spreads to diverge without reversion. An HMM regime classifier detects the current market state in real time and routes signals to the appropriate strategy branch. A SAC RL agent handles position sizing — its entropy-maximizing objective scales exposure with predicted signal strength, automatically cutting risk when conviction is low. Entry and exit signals are generated by an XGBoost / LightGBM / CatBoost ensemble and a PyTorch TFT sequence model, trained on multi-timeframe features from FMP, FRED, yfinance, and Alpha Vantage. QuestDB stores 10 years of 5-minute bars for time-series queries, with DuckDB used for analytical feature work. Live orders execute on IBKR via ib-async.',
-		reviewerSummary: [
-			'Finance system: market-data ingestion, QuestDB 5-minute bars, feature store, signal generation, broker API, and execution loop.',
-			'AI/RL: SAC/PPO/QR-DQN experiments, MLflow model management, FastAPI inference, CVaR sizing.',
-			'Operating proof: 32 live IBKR pairs, real-time P&L monitoring, Dockerized service layers.'
-		],
-		highlights: [
-			'OOS Sharpe 3.716 · Ann. Return +71.5% vs SPY benchmark +11.7%',
-			'HMM regime classifier feeds a strategy router — different signal logic per regime state',
-			'SAC RL agent drives position sizing — entropy-maximizing policy scales exposure with signal conviction, not fixed rules',
-			'Ensemble (XGBoost + LightGBM + CatBoost) + PyTorch TFT generate entry/exit signals; Optuna hyperparam sweep per model',
-
-			'Data pipeline: FMP + FRED + yfinance + Alpha Vantage → QuestDB 10 years of 5-minute bars + DuckDB feature work → model training & inference',
-			'FastAPI service layer: MongoDB (Beanie ODM) for trade records, Redis for cache, DuckDB for analytical queries — each layer purpose-fit',
-			'Live execution on IBKR — 32 active stat-arb pairs, real-time order management and P&L tracking via ib-async',
-			'Rust TUI (Ratatui + Tokio) for terminal monitoring; Tauri 2 + SvelteKit desktop dashboard'
-		],
-		tags: [
-			'Python', 'PyTorch', 'SAC RL', 'HMM', 'XGBoost', 'LightGBM', 'CatBoost',
-			'TFT', 'Optuna', 'FastAPI', 'QuestDB', 'DuckDB', 'MongoDB', 'Redis',
-			'FMP API', 'Docker', 'IBKR', 'Tauri 2', 'Rust', 'Ratatui', 'SvelteKit'
-		],
-		metrics: [
-			{ label: 'OOS Sharpe', value: '3.716' },
-			{ label: 'Ann. Return', value: '+71.5%' },
-			{ label: 'IBKR Live Pairs', value: '32' }
-		],
-		screenshots: Array.from({ length: 11 }, (_, i) => ({
-			src: `/screenshots/trading/trading-${String(i + 1).padStart(2, '0')}.png`,
-			alt: `Stock Trading AI screenshot ${i + 1}`
-		}))
-	},
-	{
-		id: 'readbooks-ai',
-		title: 'ReadBooks.ai',
-		subtitle: 'LLM-powered PDF Translation Desktop App',
-		period: '2023',
-		description:
-			'A Tauri 2 native desktop app for reading English technical books in your native language, paragraph by paragraph. The original approach attempted to fine-tune T5 and fairseq models directly on Korean–English pairs — this was abandoned when the Korean training corpus proved too thin, producing token-level noise instead of coherent output. The architecture was rebuilt around Claude Haiku via the Anthropic API, with the Rust backend handling all network I/O through reqwest, while pdfjs-dist on the SvelteKit frontend extracts and segments paragraph-level text blocks from PDF files. An SSE-streamed Ask AI panel lets users ask questions mid-read, injecting the current page text as context so answers are always relevant to what\'s on screen.',
-		reviewerSummary: [
-			'Native desktop app: Tauri 2 + Rust backend + SvelteKit frontend.',
-			'LLM product flow: PDF parsing, paragraph segmentation, Claude API translation, Ask AI streaming.',
-			'Engineering judgment: tried direct model training first, then switched to API when data quality was the bottleneck.'
-		],
-		highlights: [
-			'pdfjs-dist parses PDF structure and extracts text at paragraph granularity',
-			'Rust backend (reqwest + tokio) calls Claude Haiku API with async concurrency',
-			'30+ language support — translation target is user-configurable at runtime',
-			'SSE streaming delivers Ask AI responses token-by-token for low-latency feel',
-			'Failure-driven pivot: T5/fairseq fine-tune failed → insufficient Korean data → Claude API',
-			'Fully offline-capable except for API calls; no server, no account required beyond API key'
-		],
-		tags: ['Tauri 2', 'Rust', 'SvelteKit', 'TailwindCSS', 'Claude API', 'reqwest', 'tokio', 'pdfjs-dist'],
-		metrics: [
-			{ label: 'Languages', value: '30+' },
-			{ label: 'LLM Backend', value: 'Claude' },
-			{ label: 'Platform', value: 'Native' }
-		],
-		screenshots: Array.from({ length: 5 }, (_, i) => ({
-			src: `/screenshots/readbooks/readbooks-${String(i + 1).padStart(2, '0')}.png`,
-			alt: `ReadBooks.ai screenshot ${i + 1}`
-		}))
-	},
-	{
-		id: 'mandai',
-		title: 'Mandai',
-		subtitle: 'Goal Management Desktop App with Built-in AI Coach',
-		period: '2024',
-		description:
-			'A Tauri 2 desktop app that replaces three separate productivity tools — Mandala Chart, GTD, and Pomodoro — with one coherent workflow. The Mandala Chart gives goals a spatial structure: each outer cell expands into its own 3×3 action plan, with a drill-down navigator that moves through hierarchy levels. GTD state management runs as an explicit state machine in Rust, tracking items across Inbox → Next Actions → Waiting → Done with enforced transitions. Pomodoro sessions drive the focus cycle and write session data to DuckDB through the Rust backend, keeping everything local-first with no cloud dependency. An Ask AI feature injects the current goal and its context into an OpenAI/Anthropic prompt and streams the coaching response back via SSE.',
-		reviewerSummary: [
-			'Local-first desktop system: Rust state machine, DuckDB storage, SvelteKit UI.',
-			'AI feature: OpenAI/Anthropic prompt flow with current goal context and SSE streaming.',
-			'Product design: combines Mandala Chart, GTD, and Pomodoro into one workflow.'
-		],
-		highlights: [
-			'3-in-1 workflow: Mandala Chart spatial hierarchy + GTD state machine + Pomodoro timer',
-			'Rust state machine enforces GTD transitions — no invalid state changes possible',
-			'Drill-down navigation: click any cell to expand its own 3×3 Mandala sub-plan',
-			'DuckDB via Rust backend — all data stays local, zero cloud dependency',
-			'AI coach: OpenAI/Anthropic prompt flow with current goal context',
-			'SSE-streamed Ask AI with goal context injection and GTD expert system prompt'
-		],
-		tags: ['Tauri 2', 'Rust', 'SvelteKit', 'TailwindCSS', 'DuckDB', 'OpenAI', 'Claude'],
-		metrics: [
-			{ label: 'LLM APIs', value: '2' },
-			{ label: 'Methodology', value: '3-in-1' },
-			{ label: 'Storage', value: 'Local-first' }
-		],
-		screenshots: Array.from({ length: 7 }, (_, i) => ({
-			src: `/screenshots/mandai/mandai-${String(i + 1).padStart(2, '0')}.png`,
-			alt: `Mandai screenshot ${i + 1}`
-		}))
-	}
+  {
+    "id": "agent-hub",
+    "title": "Agent Hub",
+    "subtitle": "Document Q&A, research jobs, and review workflows in one console",
+    "period": "2026 · Independent project",
+    "category": "Agent platform",
+    "description": "I built the React and FastAPI console, authentication, tool integration, and deployment for a platform that connects document questions, CSV backtests, and product-document checks. A shared admission and status layer keeps the UI independent of each service’s execution model. LangGraph handles the reasoning flow; the application checks who can run a task and what tools it can use.",
+    "reviewerSummary": [
+      "Ownership: frontend, APIs, authentication, tool connections, and personal-server deployment.",
+      "Decision: separate model/tool selection, request admission, and the service that executes a job.",
+      "User result: follow a task from its accepted ID to status, cited output, or cancellation."
+    ],
+    "highlights": [
+      "MCP, A2A, and REST connections through the open-source Agentgateway; I implemented the Hub integration.",
+      "Matching owner, request key, and input hash reuse an accepted response. Reusing a key with different input returns HTTP 409.",
+      "An uncertain external admission blocks automatic resubmission. Cancellation checks worker termination and suppresses late results.",
+      "Document/version-scoped retrieval and citation matching; no model call when retrieval returns no evidence."
+    ],
+    "tags": [
+      "React",
+      "Python",
+      "FastAPI",
+      "LangGraph",
+      "MCP",
+      "A2A",
+      "Docker"
+    ],
+    "metrics": [
+      {
+        "label": "Console",
+        "value": "React"
+      },
+      {
+        "label": "API",
+        "value": "FastAPI"
+      },
+      {
+        "label": "Connections",
+        "value": "MCP / A2A"
+      }
+    ],
+    "screenshots": [],
+    "evidence": "Source and retained checks: September 2026. Worker cancellation was checked in an isolated deployment; retrieval comparisons used a small fixed query set. These do not establish customer-scale operation, general answer accuracy, or crash-safe concurrent resume.",
+    "links": [
+      {
+        "label": "Project overview on LinkedIn",
+        "href": "https://www.linkedin.com/feed/update/urn:li:activity:7513399139078963201/"
+      }
+    ]
+  },
+  {
+    "id": "quantsigma-agent",
+    "title": "QuantSigma Agent Harness",
+    "subtitle": "Rust / Rig, Go / Eino, Elixir / Jido with a shared execution boundary",
+    "period": "2026 · Independent project in development",
+    "category": "Agent runtime",
+    "description": "I treat an agent as a state machine with a goal, observations, pending calls, and an execution budget. Native reasoning engines consume retained request/reply pairs and yield the next external operation. The shared Go harness validates and records that operation. Temporal coordinates workflow lifetime, while PostgreSQL retains history, leases, and effect receipts.",
+    "reviewerSummary": [
+      "Ownership: reasoning adapters, context and execution contracts, and recovery behavior.",
+      "Decision: keep each framework’s reasoning model while sharing permission and effect-recording rules.",
+      "Application: read-only investigation of service state, market data, and stored observations, with provenance and unresolved questions."
+    ],
+    "highlights": [
+      "October 7 architecture: native Rust Temporal SDK for Rust workflows; Go Temporal SDK for Go/Jido workflows.",
+      "Exact request matching reuses retained replies; replay itself does not perform model or source HTTP calls.",
+      "An unknown external outcome requires explicit recovery with the same request identity. Leases fence late commits; they cannot retract remote work.",
+      "Sessions are pinned to engine/runtime versions. The retained archive and bounded model context serve different purposes."
+    ],
+    "tags": [
+      "Rust",
+      "Rig",
+      "Go",
+      "Eino",
+      "Elixir",
+      "Jido",
+      "Temporal",
+      "PostgreSQL"
+    ],
+    "metrics": [
+      {
+        "label": "Reasoning engines",
+        "value": "3"
+      },
+      {
+        "label": "Execution policy",
+        "value": "Shared"
+      },
+      {
+        "label": "Tool scope",
+        "value": "Read-only"
+      }
+    ],
+    "screenshots": [],
+    "evidence": "Source review: October 7, 2026, native shared-harness design and recorded validation. This supersedes the October 5 Python-Activity bridge description for new native sessions; historical workers remain version-pinned. Deployment checks were not rerun for this page. No trading returns or exactly-once external effects are claimed.",
+    "links": [
+      {
+        "label": "Go: execution boundaries",
+        "href": "https://itstedpark.medium.com/a-go-agent-harness-separating-reasoning-from-effects-ceebb4d466fd"
+      },
+      {
+        "label": "Rust: replay and typed IDs",
+        "href": "https://itstedpark.medium.com/a-rust-agent-harness-replay-before-external-i-o-c4e20ee67b9a"
+      }
+    ]
+  },
+  {
+    "id": "book-writer-agent",
+    "title": "Book Writer",
+    "subtitle": "AI-assisted technical manuscript translation and revision",
+    "period": "May–August 2026 · Development and revision",
+    "category": "Applied AI workflow",
+    "description": "I built a workflow for translating English drafts into Korean technical prose and revising terminology, style, and logical flow. Topic and writing-style examples are retrieved separately. LangGraph stages the revision work, and structural checks protect the manuscript before I review the technical content. I applied it to two of my own technical books.",
+    "reviewerSummary": [
+      "Ownership: translation, retrieval, staged revision, structural checks, and restart records.",
+      "Decision: retain the source section when code markers disappear or the generated output fails structural checks.",
+      "Application: manuscript preparation for the Tauri 2 and Python trading-system books."
+    ],
+    "highlights": [
+      "ChromaDB and ko-sroberta embeddings with source/page metadata and file-hash incremental indexing.",
+      "Code blocks are masked; missing markers, lost headings, severe shortening, and editorial meta-text are checked.",
+      "File checkpoints and translation progress records allow interrupted work to resume.",
+      "Human review checks meaning and technical accuracy after structural validation. Folio handles publishing separately."
+    ],
+    "tags": [
+      "Python",
+      "LangGraph",
+      "ChromaDB",
+      "RAG",
+      "Claude",
+      "SentenceTransformers"
+    ],
+    "metrics": [
+      {
+        "label": "Applied to",
+        "value": "2 books"
+      },
+      {
+        "label": "Search",
+        "value": "Topic + style"
+      },
+      {
+        "label": "Review",
+        "value": "Author-led"
+      }
+    ],
+    "screenshots": [],
+    "evidence": "Development records: May 4–August 21, 2026; manuscript application documented in the September portfolio review. This period is not continuous server uptime. No measured translation-quality uplift or time-saved percentage is claimed.",
+    "links": [
+      {
+        "label": "Read the Tauri book",
+        "href": "https://wikidocs.net/book/21320"
+      },
+      {
+        "label": "Read the Python book",
+        "href": "https://wikidocs.net/book/21322"
+      }
+    ]
+  },
+  {
+    "id": "folio-books",
+    "title": "Folio Books",
+    "subtitle": "A publishing and reading platform for technical books",
+    "period": "2026 · Independent service",
+    "category": "Product engineering",
+    "description": "I built the author studio, reader interface, data model, APIs, authentication, purchase verification, and edit-conflict handling. The product carries a manuscript from authoring to publication and gives readers access to public chapters and entitled content. It also hosts my writing about developer hiring.",
+    "reviewerSummary": [
+      "Ownership: React UI, Python Robyn backend, PostgreSQL model, and access control.",
+      "Decision: recheck purchase state at content access; a provider outage can temporarily deny an entitled reader.",
+      "User result: separate author editing, publication, and reader access in one product."
+    ],
+    "highlights": [
+      "Session and resource-ownership checks guard author operations and content access.",
+      "Revision-conditional updates detect concurrent edit conflicts rather than silently overwriting changes.",
+      "Dedicated PostgreSQL integration tests covered access restrictions, session invalidation after password reset, and edit conflicts.",
+      "Three Korean books connect the product to my own development, validation, and hiring experience."
+    ],
+    "tags": [
+      "React",
+      "Python",
+      "Robyn",
+      "PostgreSQL",
+      "TypeScript"
+    ],
+    "metrics": [
+      {
+        "label": "Author books",
+        "value": "3"
+      },
+      {
+        "label": "Data",
+        "value": "PostgreSQL"
+      },
+      {
+        "label": "Editing",
+        "value": "Revision checks"
+      }
+    ],
+    "screenshots": [],
+    "evidence": "Implementation and PostgreSQL integration-test records: September 28, 2026. Book links reviewed October 7. These demonstrate implemented flows, not paid-customer counts or revenue.",
+    "links": [
+      {
+        "label": "Open Folio Books",
+        "href": "https://books.quantsigma.ai/"
+      },
+      {
+        "label": "Developer hiring book",
+        "href": "https://wikidocs.net/book/21402"
+      }
+    ]
+  },
+  {
+    "id": "stock-trading-ai",
+    "title": "Stock Trading AI",
+    "subtitle": "Market-data pipelines and explicit order-state handling",
+    "period": "2022–present · Independent project",
+    "category": "Data and execution systems",
+    "description": "I built data collection, storage, analytical jobs, and order-management backends for a personal market-research system. The current portfolio focuses on preserving source evidence and handling uncertain execution states. QuestDB and a separate PostgreSQL/TimescaleDB path serve different storage workflows; I do not add their row counts together.",
+    "reviewerSummary": [
+      "Ownership: ingestion and storage checks, analytical jobs, order-state handling, and Python/Rust integration.",
+      "Decision: preserve raw responses and flag suspect rows instead of deleting evidence during cleaning.",
+      "Recovery: reconcile stored execution observations before repeating an uncertain order-related action."
+    ],
+    "highlights": [
+      "Raw payloads, hashes, and collection history support comparison before and after UPSERT; clean views exclude flagged rows.",
+      "Temporal handles retries, timeouts, and progress for selected jobs. A separate order controller owns fill-state handling.",
+      "Rust Axum/Tokio gateway and PyO3/gel-tokio integration connect Python execution logic and a Rust data layer.",
+      "ML/RL experiments and model-serving work are research components; their presence alone does not establish investment performance."
+    ],
+    "tags": [
+      "Python",
+      "Rust",
+      "Temporal",
+      "PostgreSQL",
+      "TimescaleDB",
+      "QuestDB",
+      "PyTorch"
+    ],
+    "metrics": [
+      {
+        "label": "5-minute bars snapshot",
+        "value": "~285M rows"
+      },
+      {
+        "label": "Snapshot date",
+        "value": "2026-09-30"
+      },
+      {
+        "label": "Focus",
+        "value": "Data integrity"
+      }
+    ],
+    "screenshots": [],
+    "evidence": "The September 30, 2026 read-only TimescaleDB query recorded about 285 million rows and 10.36 GiB for fmp_bars_5m, with table timestamps spanning September 2021–September 2026. This is a historical table snapshot, not complete coverage per instrument, current uptime, independently reconciled fills, or a return benchmark. No database or live-trading checks were rerun for this page.",
+    "links": [
+      {
+        "label": "Public financial ML companion repository",
+        "href": "https://github.com/tedpark/agentic-quant-trading-python"
+      }
+    ]
+  }
 ];

@@ -4,8 +4,8 @@
 </script>
 
 <svelte:head>
-	<title>Ted Park — AI / ML Engineer</title>
-	<meta name="description" content="Ted Park is an AI / ML engineer building production systems across RAG agents, financial ML, model serving, and technical writing." />
+	<title>Ted Park — AI Agents &amp; Backend Systems</title>
+	<meta name="description" content="Ted Park is a senior software engineer building AI agents, backend systems, retrieval workflows, and publishing tools." />
 	<meta name="theme-color" content="#0a0a0a" />
 </svelte:head>
 

@@ -8,6 +8,7 @@
 
 <script lang="ts">
 	import SiteNav from '$lib/components/SiteNav.svelte';
+	import FeaturedBooks from '$lib/components/FeaturedBooks.svelte';
 
 	// ─── Language ────────────────────────────────────────────────────────────
 	type Lang = 'ko' | 'en' | 'ja';
@@ -78,7 +79,7 @@
 			tag: 'Python · HMM · SAC RL · IBKR · FastAPI',
 			titleHtml: 'Agentic Quant<br /><span style="opacity:0.4">Trading with Python</span>',
 			subtitle: 'HMM Regime Detection · SAC / QR-DQN · Statistical Arbitrage',
-			desc: 'A production-style financial ML/RL systems book covering a running architecture: HMM regime classification, Kalman spread modeling, SAC and QR-DQN agents, CVaR-aware risk control, FastAPI serving, MLflow tracking, and Rust TUI monitoring.',
+			desc: 'A production-style financial ML/RL systems book covering research and implementation patterns: HMM regime classification, Kalman spread modeling, SAC and QR-DQN agents, CVaR-aware risk control, FastAPI serving, MLflow tracking, and Rust TUI monitoring.',
 			chapters: 27,
 			gradient: 'from-blue-500/10 via-transparent to-transparent',
 			borderHover: 'hover:border-blue-500/40',
@@ -120,8 +121,11 @@
 <div class="min-h-screen">
 	<SiteNav label="Books" />
 
+	<div class="pt-20"><FeaturedBooks /></div>
+	<p class="max-w-5xl mx-auto px-6 text-sm text-muted-foreground">Current Korean titles and reading links above were reviewed October 7, 2026. Earlier PDF editions and language samples are listed below; chapter counts and titles can differ by edition.</p>
+
 	<!-- ═══ Hero ═══ -->
-	<section class="max-w-5xl mx-auto px-6 pt-40 pb-20">
+	<section class="max-w-5xl mx-auto px-6 pt-16 pb-20">
 		<p class="text-[11px] font-mono text-muted-foreground tracking-[0.3em] uppercase mb-6">
 			Technical Books · PDF · English First · Korean and Japanese Editions Available
 		</p>

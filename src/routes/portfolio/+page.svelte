@@ -1,26 +1,21 @@
 <script lang="ts">
 	import { projects } from '$lib/data/projects';
-	import { posts } from '$lib/data/posts';
+	import AgentWriting from '$lib/components/AgentWriting.svelte';
+	import FeaturedBooks from '$lib/components/FeaturedBooks.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import SiteNav from '$lib/components/SiteNav.svelte';
 
-	const recentPosts = posts.filter((post) => post.lang === 'en').slice(0, 3);
 	const reviewerPoints = [
-		{
-			label: 'RAG / Agent Systems',
-			value: 'LangGraph 8-node RAG, FAISS/BM25 hybrid retrieval, Cross-Encoder reranking, RAGAS evaluation, and Supervisor-style multi-agent workflows.'
-		},
-		{
-			label: 'AI Backend / Serving',
-			value: 'Python/FastAPI APIs, SSE streaming, Docker deployment, model hot reload, MLflow registry, and production-oriented observability.'
-		},
-		{
-			label: 'Applied Product Work',
-			value: 'Turns LLM output into tested features: RAG chat, manuscript editing agents, PDF translation, AI coaching, and trading inference services.'
-		}
-	];
+ { label: 'Agent execution', value: 'Tool admission, bounded reasoning, context, cancellation, and recovery—with the validation scope stated per case.' },
+ { label: 'End-to-end ownership', value: 'React interfaces, backend APIs, data models, authentication, and deployment around the AI workflow.' },
+ { label: 'Applied AI', value: 'Document questions, manuscript revision, book publishing, and research data. Quant is one application of the work.' }
+ ];
 </script>
 
+<svelte:head>
+ <title>Portfolio — Ted Park · AI Agents &amp; Backend Systems</title>
+ <meta name="description" content="Five independent engineering cases: Agent Hub, a Rust/Go/Elixir agent harness, Book Writer, Folio Books, and market-data systems. Ownership, design choices, and dated evidence." />
+</svelte:head>
 <div class="min-h-screen">
 
 	<SiteNav label="Portfolio" />
@@ -29,28 +24,28 @@
 	<section class="max-w-5xl mx-auto px-6 pt-40 pb-20">
 
 		<p class="text-[11px] font-mono text-muted-foreground tracking-[0.3em] uppercase mb-6">
-			AI Engineer · RAG / Agent Systems
+			AI Agent &amp; Backend Engineer · Selected work
 		</p>
 
 		<h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
-			RAG Agents<br />
-			<span class="text-foreground/35">to Production AI.</span>
+			From model output<br />
+			<span class="text-foreground/35">to working products.</span>
 		</h1>
 
 		<p class="text-foreground/60 text-lg leading-relaxed max-w-xl mb-10">
-			LangGraph RAG, multi-agent orchestration, FastAPI model serving,<br />
-			and data pipelines built into working products.
+			Five independent projects: the problem, my implementation, and the evidence behind it.
+			These are separate from my employment. Source and historical verification records were reviewed on October 7, 2026.
 		</p>
 
 		<!-- Stats strip -->
 		<div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-mono text-muted-foreground">
 			<span>{projects.length} Projects</span>
 			<span class="text-border/80">·</span>
-			<span>LangGraph RAG</span>
+			<span>Agent execution</span>
 			<span class="text-border/80">·</span>
 			<span>FastAPI + Docker</span>
 			<span class="text-border/80">·</span>
-			<span>Model Serving + Data Pipelines</span>
+			<span>Source and scope per case</span>
 		</div>
 	</section>
 
@@ -62,7 +57,7 @@
 					For resume reviewers
 				</p>
 				<h2 class="text-2xl md:text-3xl font-semibold tracking-tight">
-					What this portfolio proves at a glance
+					What to look for in these cases
 				</h2>
 			</div>
 			<div class="grid md:grid-cols-3 gap-3">
@@ -87,7 +82,7 @@
 			<div class="max-w-5xl mx-auto px-6">
 				<div class="flex items-center gap-4 py-7 border-t border-white/10">
 					<span class="text-[10px] font-mono text-muted-foreground/50 tracking-[0.35em] uppercase whitespace-nowrap">
-						{['01 — RAG System', '02 — Agent Workflow', '03 — Model Serving', '04 — LLM App', '05 — AI App'][i] ?? `${String(i + 1).padStart(2, '0')} — Project`}
+						{`${String(i + 1).padStart(2, '0')} — ${project.category}`}
 					</span>
 					<div class="h-px flex-1 bg-white/6"></div>
 				</div>
@@ -98,54 +93,8 @@
 		</section>
 	{/each}
 
-	<!-- ═══ Recent Writing ═══ -->
-	{#if recentPosts.length > 0}
-		<section>
-			<div class="max-w-5xl mx-auto px-6">
-				<div class="flex items-center gap-4 py-7 border-t border-white/10">
-					<span class="text-[10px] font-mono text-muted-foreground/50 tracking-[0.35em] uppercase whitespace-nowrap">
-						04 — Writing
-					</span>
-					<div class="h-px flex-1 bg-white/6"></div>
-					<a
-						href="/blog"
-						class="text-[10px] font-mono text-muted-foreground/70 hover:text-foreground transition-colors tracking-[0.2em] uppercase whitespace-nowrap"
-					>All posts ↗</a>
-				</div>
-			</div>
-			<div class="max-w-5xl mx-auto px-6 pb-24 md:pb-32">
-				<ul class="divide-y divide-border/40">
-					{#each recentPosts as post}
-						<li>
-							<a
-								href={`/blog/${post.slug}`}
-								class="block py-6 group"
-							>
-								<div class="flex items-center gap-3 mb-2">
-									<time
-										class="text-[10px] font-mono text-muted-foreground/60 tracking-[0.15em] uppercase"
-										datetime={post.date}
-									>{post.date}</time>
-									<span class="text-border/80">·</span>
-									<span class="text-[10px] font-mono text-muted-foreground/60">
-										{post.readingTime} min
-									</span>
-								</div>
-								<h3
-									class="text-xl sm:text-2xl font-semibold tracking-tight leading-snug mb-2 group-hover:text-foreground/80 transition-colors"
-								>{post.title}</h3>
-								{#if post.subtitle}
-									<p class="text-foreground/55 text-sm leading-relaxed max-w-2xl">
-										{post.subtitle}
-									</p>
-								{/if}
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
-		</section>
-	{/if}
+	<AgentWriting />
+	<FeaturedBooks />
 
 	<!-- Footer -->
 	<footer class="border-t border-border/50">
