@@ -41,6 +41,7 @@
    {/each}
   </div>
  </section>
+ <section class="max-w-5xl mx-auto px-6 py-10 border-t border-border"><p class="text-xs font-mono text-muted-foreground mb-3">TRY A WORKING EXAMPLE</p><a href="/demos/manuscript-guard" class="text-2xl font-semibold underline">Book Writer: protect the manuscript →</a><p class="text-sm text-foreground/75 mt-3">Explore missing code, lost headings, and a meaning error that structural checks cannot catch.</p></section>
  <AgentWriting />
  <FeaturedBooks />
 </main>

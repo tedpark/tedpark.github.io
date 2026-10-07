@@ -174,6 +174,7 @@ export const projects: Project[] = [
     "screenshots": [],
     "evidence": "Development records: May 4–August 21, 2026; manuscript application documented in the September portfolio review. This period is not continuous server uptime. No measured translation-quality uplift or time-saved percentage is claimed.",
     "links": [
+      { "label": "Try manuscript protection demo", "href": "/demos/manuscript-guard" },
       {
         "label": "Read the Tauri book",
         "href": "https://wikidocs.net/book/21320"
