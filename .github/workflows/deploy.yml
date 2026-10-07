@@ -28,7 +28,15 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        env:
+          # Static-site builds do not use the product-generation browser.
+          PUPPETEER_SKIP_DOWNLOAD: 'true'
         run: npm ci
+
+      - name: Verify public manuscript demo
+        run: |
+          cmp src/lib/demo/guard.mjs static/demos/manuscript-guard/guard.mjs
+          node --test static/demos/manuscript-guard/guard.test.mjs
 
       - name: Build
         run: npm run build
