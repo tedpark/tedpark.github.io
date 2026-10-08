@@ -1,6 +1,7 @@
 <section class="max-w-5xl mx-auto px-6 py-16 border-t border-border">
  <p class="text-xs font-mono uppercase tracking-widest text-muted-foreground mb-3">Current engineering notes · October 2026</p>
  <h2 class="text-3xl font-semibold mb-6">Inside an agent harness</h2>
+ <p class="text-foreground/70 mb-6">These October 7 articles document the earlier Go and Rust designs. New sessions now use Jido/Oban; the recovery principles still inform the active harness.</p>
  <div class="grid md:grid-cols-2 gap-4">
   <a href="https://itstedpark.medium.com/a-go-agent-harness-separating-reasoning-from-effects-ceebb4d466fd" class="rounded-xl border border-border p-6 hover:border-foreground/40">
    <h3 class="text-xl font-semibold mb-3">Go: reasoning and execution</h3>

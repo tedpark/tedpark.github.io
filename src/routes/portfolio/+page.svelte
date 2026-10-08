@@ -78,7 +78,7 @@
  <section id="execution-models" class="max-w-5xl mx-auto px-6 pb-16 scroll-mt-20">
   <h2 class="text-2xl font-semibold mb-5">How the projects fit together</h2>
   <div class="space-y-4 text-sm leading-relaxed text-foreground/75">
-   <p><strong class="text-foreground">Agent harness.</strong> QuantSigma connects Rust/Rig, Go/Eino, and Elixir/Jido reasoning engines to shared execution rules. Temporal manages durable workflow progress; PostgreSQL retains application history and effect records.</p>
+   <p><strong class="text-foreground">Agent harness.</strong> QuantSigma now uses Elixir/Jido with OTP supervision and Oban durable jobs for new sessions. PostgreSQL retains application history and effect records. Earlier Rust/Rig and Go/Eino Temporal runtimes remain available for historical pinned-session recovery.</p>
    <p><strong class="text-foreground">AI workflows and integration.</strong> Agent Hub connects independently owned services and manages task admission and status. Book Writer uses its own LangGraph revision workflow, structural checks, and file checkpoints. These projects have separate execution models.</p>
    <p><strong class="text-foreground">Products and public examples.</strong> Folio Books handles publishing and reader access. The <a href="/demos/manuscript-guard" class="underline underline-offset-4">Book Writer demo</a> uses synthetic replies to demonstrate manuscript checks in the browser; it does not run a model or the full agent runtime.</p>
   </div>

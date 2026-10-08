@@ -79,17 +79,17 @@ export const projects: Project[] = [
   {
     "id": "quantsigma-agent",
     "title": "QuantSigma Agent Harness",
-    "subtitle": "Rust / Rig, Go / Eino, Elixir / Jido with a shared execution boundary",
+    "subtitle": "Elixir / Jido / Oban, with version-pinned recovery for earlier Rust and Go sessions",
     "period": "2026 · Independent project in development",
     "category": "Agent runtime",
-    "description": "I treat an agent as a state machine with a goal, observations, pending calls, and an execution budget. Native reasoning engines consume retained request/reply pairs and yield the next external operation. The shared Go harness validates and records that operation. Temporal coordinates workflow lifetime, while PostgreSQL retains history, leases, and effect receipts.",
+    "description": "I built and compared Rust/Rig, Go/Eino, and Elixir/Jido adapters, then consolidated new sessions on a native Elixir harness. Jido handles reasoning, OTP supervises processes, and Oban schedules durable work. PostgreSQL retains context, leases, and effect receipts. Earlier Rust/Go runtimes remain available for historical pinned-session recovery.",
     "reviewerSummary": [
       "Ownership: reasoning adapters, context and execution contracts, and recovery behavior.",
-      "Decision: keep each framework’s reasoning model while sharing permission and effect-recording rules.",
+      "Decision: preserve the execution contract while reducing active runtime choices to Jido; retain compatible artifacts for older sessions.",
       "Application: read-only investigation of service state, market data, and stored observations, with provenance and unresolved questions."
     ],
     "highlights": [
-      "October 7 architecture: native Rust Temporal SDK for Rust workflows; Go Temporal SDK for Go/Jido workflows.",
+      "October 8 architecture: new sessions use Jido/Oban; earlier Rust/Go Temporal implementations serve historical recovery. The Rust terminal is a client.",
       "Exact request matching reuses retained replies; replay itself does not perform model or source HTTP calls.",
       "An unknown external outcome requires explicit recovery with the same request identity. Leases fence late commits; they cannot retract remote work.",
       "Sessions are pinned to engine/runtime versions. The retained archive and bounded model context serve different purposes."
@@ -101,17 +101,18 @@ export const projects: Project[] = [
       "Eino",
       "Elixir",
       "Jido",
+      "Oban",
       "Temporal",
       "PostgreSQL"
     ],
     "metrics": [
       {
-        "label": "Reasoning engines",
-        "value": "3"
+        "label": "New sessions",
+        "value": "Jido"
       },
       {
-        "label": "Execution policy",
-        "value": "Shared"
+        "label": "Durable jobs",
+        "value": "Oban"
       },
       {
         "label": "Tool scope",
@@ -119,14 +120,14 @@ export const projects: Project[] = [
       }
     ],
     "screenshots": [],
-    "evidence": "Source review: October 7, 2026, native shared-harness design and recorded validation. This supersedes the October 5 Python-Activity bridge description for new native sessions; historical workers remain version-pinned. Deployment checks were not rerun for this page. No trading returns or exactly-once external effects are claimed.",
+    "evidence": "Source review: October 8, 2026, agent collection, Jido consolidation and context-continuity implementation. New sessions use the native Elixir harness; earlier Go/Rust/Temporal designs remain historical. Recorded deployment checks were not rerun for this page. External submissions require separate approval and enabled capabilities; no trading returns or exactly-once external effects are claimed.",
     "links": [
       {
-        "label": "Go: execution boundaries",
+        "label": "Earlier Go design: execution boundaries",
         "href": "https://itstedpark.medium.com/a-go-agent-harness-separating-reasoning-from-effects-ceebb4d466fd"
       },
       {
-        "label": "Rust: replay and typed IDs",
+        "label": "Earlier Rust design: replay and typed IDs",
         "href": "https://itstedpark.medium.com/a-rust-agent-harness-replay-before-external-i-o-c4e20ee67b9a"
       }
     ]
